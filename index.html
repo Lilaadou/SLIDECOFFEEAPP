@@ -323,6 +323,8 @@
   .htag{font-size:11.5px; font-weight:700; padding:3px 9px; border-radius:99px; white-space:nowrap}
   .htag.attente{background:var(--accent); color:#0D0D0D}
   .htag.recue{background:transparent; color:var(--muted); border:1px solid var(--line-strong)}
+  .plain{background:none; border:0; padding:4px 2px; font-size:12.5px; color:var(--muted); cursor:pointer; text-decoration:underline}
+  .plain:hover{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -397,7 +399,7 @@
     </div>
     <div id="hist"></div>
     <footer>
-      <p>« Reçue + stock » ajoute les quantités commandées au stock et les inscrit au journal des mouvements comme des entrées. « Reçue » se contente de clore la ligne, si tu as déjà fait les entrées à la main.</p>
+      <p>« Commande reçue » ajoute automatiquement les quantités commandées au stock et les inscrit au journal des mouvements comme des entrées. Le petit lien à côté clôt la ligne sans rien ajouter, pour les rares fois où l'équipe a déjà compté à la main.</p>
     </footer>
   </section>
 
@@ -423,7 +425,7 @@
   /* ====================================================== CONFIGURATION ===
      L'URL /exec du déploiement Apps Script. Si tu redéploies en gardant le
      même déploiement, elle ne change pas.                                  */
-  var API = "https://script.google.com/macros/s/AKfycbyxduhK2sXuwNxygbeNZ4YniUr7pQLLazC__EFIMn-4_RgeDgKSc_u-5-H6JIm7HpxLwg/exec";
+  var API = "https://script.google.com/macros/s/AKfycbxoYbMCw0zyCx-zHi9czCM3Gwrf-O-0hWcEOVIudzY3QsHTPRGQF42ycIz734RJZHnvjw/exec";
   /* Si tu remplis « Clé d'accès » dans l'onglet Réglages, recopie-la ici.  */
   var CLE = "";
   /* ====================================================================== */
@@ -434,7 +436,7 @@
   var openForm = null, order = {}, sentState = {};
   var filter = "all", oFilter = "todo", query = "", confirmFor = null, busy = false, loaded = false;
   var previewCache = {};   // aperçu rendu par le Sheet, modèle du fournisseur compris
-  var orders = [], hFilter = "wait", histLoaded = false;
+  var orders = [], hFilter = "wait", histLoaded = false, histFlash = {};
 
   var host = document.getElementById("suppliers");
   var oHost = document.getElementById("orders");
@@ -815,9 +817,11 @@
         '<div class="hbtns">' +
           (recue
             ? '<button type="button" class="ghost" data-undeliver="' + esc(o.id) + '">Remettre en attente</button>'
-            : '<button type="button" class="send" data-deliver="' + esc(o.id) + '" data-stock="1">Reçue + stock</button>' +
-              '<button type="button" class="ghost" data-deliver="' + esc(o.id) + '" data-stock="0">Reçue seulement</button>') +
-        '</div></article>';
+            : '<button type="button" class="send" data-deliver="' + esc(o.id) + '" data-stock="1">Commande reçue</button>' +
+              '<button type="button" class="plain" data-deliver="' + esc(o.id) + '" data-stock="0">sans ajouter au stock</button>') +
+        '</div>' +
+        (histFlash[o.id] ? '<div class="flash ok" style="margin-top:9px">' + esc(histFlash[o.id]) + '</div>' : '') +
+      '</article>';
     }).join("");
   }
 
@@ -842,7 +846,14 @@
     apiPost({action:"delivered", id:id, recu:recu, stock:stock})
       .then(function(res){
         setBusy(false);
-        setSync("Google Sheet · <b>" + ((res && res.ok) ? "enregistré" : "refusé") + "</b>");
+        if(res && res.ok){
+          setSync("Google Sheet · <b>enregistré</b>");
+          if(recu && res.msg) histFlash[id] = res.msg;
+          else delete histFlash[id];
+        } else {
+          setSync("Google Sheet · <b>refusé</b>");
+          histFlash[id] = (res && res.err) || "Mise à jour refusée.";
+        }
         return Promise.all([loadHist(), stock ? refreshAll() : null]);
       })
       .catch(function(){ setBusy(false); setSync("Google Sheet · <b>hors ligne</b>"); });
