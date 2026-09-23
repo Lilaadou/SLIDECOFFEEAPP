@@ -168,6 +168,7 @@
   .pill.unknown{background:rgba(255,255,255,.72); color:#0D0D0D; border-color:#0D0D0D; border-style:dashed}
   .pill.flat{background:transparent; color:rgba(13,13,13,.6); border-color:rgba(13,13,13,.22)}
   .pill.flat::before{display:none}
+  .pill.avance{background:rgba(255,255,255,.8); color:#0D0D0D; border-color:#0D0D0D}
 
   /* ---- product blocks ---- */
   .pgrid{display:grid; grid-template-columns:repeat(auto-fill, minmax(238px, 1fr)); gap:10px; padding:14px 16px}
@@ -393,7 +394,7 @@
   /* ====================================================== CONFIGURATION ===
      L'URL /exec du déploiement Apps Script. Si tu redéploies en gardant le
      même déploiement, elle ne change pas.                                  */
-  var API = "https://script.google.com/macros/s/AKfycbyuf6Ye2ikc5n47uY23ZxUey6dqmFjfOPQarFfCSU3kBeMS6-PMudYNb7Y_33lX5-mA1g/exec";
+  var API = "https://script.google.com/macros/s/AKfycbyWFRmWhEsdPZs0bnkH0PtFC7If-d2wbD18EC5lpRhnuwheuYuYN-Q6I7oDNbxI59dGMQ/exec";
   /* Si tu remplis « Clé d'accès » dans l'onglet Réglages, recopie-la ici.  */
   var CLE = "";
   /* ====================================================================== */
@@ -450,21 +451,33 @@
     var t = now();
     if(sup.days === null) return {kind:"unknown", label:"Jours de commande à confirmer", rank:3};
     if(sup.days === "any") return {kind:"ok", open:true, rank:0, label:"Commande possible tous les jours"};
-    if(sup.days.indexOf(t.day) !== -1 && t.minutes < hm(sup.cutoff)){
-      var left = hm(sup.cutoff) - t.minutes;
-      return {kind:"ok", open:true, left:left, rank:0,
-              label:"Ouverte jusqu'à " + fmtH(sup.cutoff) + " · encore " + fmtLeft(left)};
+    var cut = hm(sup.cutoff);
+    var ouvert = sup.days.indexOf(t.day) !== -1 && t.minutes < cut;
+    var ech = null, ecart = 0;
+    if(ouvert){ ech = t.day; }
+    else {
+      for(var i=1;i<=7;i++){
+        var d = (t.day + i) % 7;
+        if(sup.days.indexOf(d) !== -1){ ech = d; ecart = i; break; }
+      }
     }
-    for(var i=1;i<=7;i++){
-      var d = (t.day + i) % 7;
-      if(sup.days.indexOf(d) !== -1)
-        return {kind:"closed", rank:i, days:i,
-                label:"Prochain créneau : " + DAYS[d] + " avant " + fmtH(sup.cutoff)};
+    if(ech === null) return {kind:"unknown", label:"—", rank:3};
+    var liv = sup.lead ? (ech + sup.lead) % 7 : null;
+    if(ouvert){
+      return {kind:"ok", open:true, left:cut - t.minutes, rank:0, echeance:ech, livraison:liv,
+              label:"Ouverte jusqu'à " + fmtH(sup.cutoff) + " · encore " + fmtLeft(cut - t.minutes)};
     }
-    return {kind:"unknown", label:"—", rank:3};
+    if(sup.avance !== false){
+      return {kind:"avance", rank:ecart, days:ecart, echeance:ech, livraison:liv,
+              label:"Commande à l'avance · traitée " + DAYS[ech] + " avant " + fmtH(sup.cutoff)};
+    }
+    return {kind:"closed", rank:ecart, days:ecart, echeance:ech, livraison:liv,
+            label:"Prochain créneau : " + DAYS[ech] + " avant " + fmtH(sup.cutoff)};
   }
   function deliveryLabel(sup, st){
     if(sup.lead === 1 && st.open) return {cls:"ok", txt:"Livrable demain"};
+    if(sup.lead === 1 && st.livraison !== null && st.livraison !== undefined)
+      return {cls:"avance", txt:"Livraison " + DAYS[st.livraison]};
     if(sup.lead === 1) return {cls:"flat", txt:"Livraison le lendemain de la commande"};
     return {cls:"flat", txt:"Délai de livraison à confirmer"};
   }
@@ -575,7 +588,7 @@
             (sup.minQty ? ' · minimum ' + sup.minQty.v + " " + esc(sup.minQty.u) : '') +
             (sup.note ? ' · ' + esc(sup.note) : '') +
             (sup.email ? ' · ' + esc(sup.email) : ' · contact à confirmer') + '</div></div>' +
-          '<div class="pills"><span class="pill ' + (w.kind==="ok"?"ok":w.kind==="closed"?"closed":"unknown") + '">' + esc(w.label) + '</span>' +
+          '<div class="pills"><span class="pill ' + (w.kind==="ok"?"ok":w.kind==="avance"?"avance":w.kind==="closed"?"closed":"unknown") + '">' + esc(w.label) + '</span>' +
           '<span class="pill ' + dl.cls + '">' + esc(dl.txt) + '</span></div></div>' +
         '<div class="pgrid">' + rows + '</div></section>';
     });
@@ -625,6 +638,7 @@
   function blockReason(sup, w, tot){
     if(!tot.lines.length) return "Coche au moins un produit";
     if(w.kind === "closed") return "Commande fermée — " + w.label.toLowerCase();
+    if(w.kind === "avance" && !sup.email) return "Adresse mail du fournisseur à compléter dans le Google Sheet";
     if(!sup.email) return "Adresse mail du fournisseur à compléter dans le Google Sheet";
     if(sup.minEur && tot.eur < sup.minEur)
       return "Il manque " + fmtEur(sup.minEur - tot.eur) + " pour atteindre le minimum de " + fmtEur(sup.minEur);
@@ -709,12 +723,15 @@
             (sup.minEur ? ' · minimum ' + fmtEur(sup.minEur) : '') +
             (sup.minQty ? ' · minimum ' + sup.minQty.v + " " + esc(sup.minQty.u) : '') +
             (sup.email ? ' · ' + esc(sup.email) : ' · adresse à confirmer') + '</div></div>' +
-          '<div class="pills"><span class="pill ' + (w.kind==="ok"?"ok":w.kind==="closed"?"closed":"unknown") + '">' + esc(w.label) + '</span>' +
+          '<div class="pills"><span class="pill ' + (w.kind==="ok"?"ok":w.kind==="avance"?"avance":w.kind==="closed"?"closed":"unknown") + '">' + esc(w.label) + '</span>' +
           '<span class="pill ' + dl.cls + '">' + esc(dl.txt) + '</span></div></div>' +
         lines +
         '<div class="ofoot"><div class="osum">' +
           '<div class="big">' + (sup.minEur || tot.eur ? fmtEur(tot.eur) + (tot.missing ? " +" : "") : tot.qty + " " + (sup.minQty ? sup.minQty.u : "unités")) + '</div>' +
-          '<div class="sub' + (reason ? " blocked" : "") + '">' + esc(reason || "Commande prête à partir") + '</div>' +
+          '<div class="sub' + (reason ? " blocked" : "") + '">' +
+            esc(reason || (w.kind === "avance"
+              ? "Prête à partir · pour la livraison" + (w.livraison !== null && w.livraison !== undefined ? " de " + DAYS[w.livraison] : " suivante")
+              : "Commande prête à partir")) + '</div>' +
           (goal ? '<div class="bar' + (pct>=100?" full":"") + '"><i style="width:' + pct + '%"></i></div>' : '') +
         '</div>' +
         (confirming
