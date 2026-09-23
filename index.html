@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Réassort — Slide Coffee</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23EB733A'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='bold' text-anchor='middle' fill='%230D0D0D'%3ESC%3C/text%3E%3C/svg%3E">
+<title>SlideKick</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23EB733A'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='bold' text-anchor='middle' fill='%230D0D0D'%3ESK%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
   :root{
@@ -310,6 +310,19 @@
   .flash.ok{background:var(--accent); color:#0D0D0D}
   .flash.err{background:var(--surface); border:1px solid var(--accent); color:var(--accent-text)}
   .boot{padding:60px 16px; text-align:center; color:var(--muted); font-size:14px}
+  .hcard{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:13px 15px; margin-bottom:10px}
+  .hcard.recue{border-color:var(--line); background:var(--surface-2)}
+  .hcard.attente{border-left:4px solid var(--accent)}
+  .htop{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+  .hsup{font-size:14.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase}
+  .hdate{font-family:var(--mono); font-size:11.5px; color:var(--muted)}
+  .htot{margin-left:auto; font-family:var(--mono); font-size:14px; font-weight:700; font-variant-numeric:tabular-nums}
+  .hlines{font-size:12.5px; color:var(--ink-2); margin-top:6px; line-height:1.5; overflow-wrap:anywhere}
+  .hmeta{font-size:11.5px; color:var(--muted); margin-top:5px}
+  .hbtns{display:flex; gap:7px; flex-wrap:wrap; margin-top:10px; align-items:center}
+  .htag{font-size:11.5px; font-weight:700; padding:3px 9px; border-radius:99px; white-space:nowrap}
+  .htag.attente{background:var(--accent); color:#0D0D0D}
+  .htag.recue{background:transparent; color:var(--muted); border:1px solid var(--line-strong)}
 </style>
 </head>
 <body>
@@ -317,15 +330,16 @@
 <header class="topbar">
   <div class="wrap">
     <div class="brand">
-      <span class="mark" aria-hidden="true">SC</span>
+      <span class="mark" aria-hidden="true">SK</span>
       <div>
-        <h1>Réassort</h1>
+        <h1>SlideKick</h1>
         <p id="brandSub">Slide Coffee</p>
       </div>
     </div>
     <nav class="tabs" role="tablist" aria-label="Sections">
       <button class="tab" id="tab-stock" role="tab" aria-selected="true" aria-controls="panel-stock">Gestion de stock</button>
       <button class="tab" id="tab-orders" role="tab" aria-selected="false" aria-controls="panel-orders">Commandes <span class="badge" id="ordBadge" hidden>0</span></button>
+      <button class="tab" id="tab-hist" role="tab" aria-selected="false" aria-controls="panel-hist">Historique <span class="badge" id="histBadge" hidden>0</span></button>
     </nav>
   </div>
 </header>
@@ -372,6 +386,21 @@
     </footer>
   </section>
 
+  <section id="panel-hist" role="tabpanel" aria-labelledby="tab-hist" hidden>
+    <div class="controls">
+      <div class="chips" role="group" aria-label="Filtres historique">
+        <button class="chip" id="h-wait" aria-pressed="true" type="button">En attente de livraison</button>
+        <button class="chip" id="h-all" aria-pressed="false" type="button">Toutes les commandes</button>
+      </div>
+      <span style="flex:1"></span>
+      <button class="ghost" id="histRefresh" type="button">Rafraîchir</button>
+    </div>
+    <div id="hist"></div>
+    <footer>
+      <p>« Reçue + stock » ajoute les quantités commandées au stock et les inscrit au journal des mouvements comme des entrées. « Reçue » se contente de clore la ligne, si tu as déjà fait les entrées à la main.</p>
+    </footer>
+  </section>
+
   <section id="panel-orders" role="tabpanel" aria-labelledby="tab-orders" hidden>
     <div id="alertBox"></div>
     <div class="controls">
@@ -394,7 +423,7 @@
   /* ====================================================== CONFIGURATION ===
      L'URL /exec du déploiement Apps Script. Si tu redéploies en gardant le
      même déploiement, elle ne change pas.                                  */
-  var API = "https://script.google.com/macros/s/AKfycbyWFRmWhEsdPZs0bnkH0PtFC7If-d2wbD18EC5lpRhnuwheuYuYN-Q6I7oDNbxI59dGMQ/exec";
+  var API = "https://script.google.com/macros/s/AKfycbyxduhK2sXuwNxygbeNZ4YniUr7pQLLazC__EFIMn-4_RgeDgKSc_u-5-H6JIm7HpxLwg/exec";
   /* Si tu remplis « Clé d'accès » dans l'onglet Réglages, recopie-la ici.  */
   var CLE = "";
   /* ====================================================================== */
@@ -405,6 +434,7 @@
   var openForm = null, order = {}, sentState = {};
   var filter = "all", oFilter = "todo", query = "", confirmFor = null, busy = false, loaded = false;
   var previewCache = {};   // aperçu rendu par le Sheet, modèle du fournisseur compris
+  var orders = [], hFilter = "wait", histLoaded = false;
 
   var host = document.getElementById("suppliers");
   var oHost = document.getElementById("orders");
@@ -754,6 +784,80 @@
     oHost.innerHTML = html || '<div class="sup"><div class="empty">Aucun produit sous le seuil. Passe sur « Tous les fournisseurs » pour commander quand même.</div></div>';
   }
 
+  /* ------------------------------------------------------------ onglet 3 */
+  var hHost = document.getElementById("hist");
+
+  function renderHist(){
+    var attente = orders.filter(function(o){ return o.livraison !== "Reçue"; });
+    var badge = document.getElementById("histBadge");
+    badge.hidden = attente.length === 0;
+    badge.textContent = attente.length;
+
+    if(!histLoaded){ hHost.innerHTML = '<div class="hcard"><div class="boot">Chargement de l\'historique…</div></div>'; return; }
+    var list = hFilter === "wait" ? attente : orders;
+    if(!list.length){
+      hHost.innerHTML = '<div class="hcard"><div class="boot">' +
+        (hFilter === "wait" ? "Aucune commande en attente de livraison." : "Aucune commande enregistrée pour l'instant.") +
+        '</div></div>';
+      return;
+    }
+    hHost.innerHTML = list.map(function(o){
+      var recue = o.livraison === "Reçue";
+      return '<article class="hcard ' + (recue ? "recue" : "attente") + '">' +
+        '<div class="htop"><span class="hsup">' + esc(o.fournisseur) + '</span>' +
+          '<span class="hdate">' + esc(o.date) + '</span>' +
+          '<span class="htag ' + (recue ? "recue" : "attente") + '">' +
+            (recue ? "Reçue" + (o.recuLe ? " le " + esc(o.recuLe) : "") : "En attente") + '</span>' +
+          (o.total !== null && o.total !== 0 ? '<span class="htot">' + fmtEur(o.total) + '</span>' : '') +
+        '</div>' +
+        '<div class="hlines">' + esc(o.lignes || "") + '</div>' +
+        '<div class="hmeta">' + esc(o.statut || "") + (o.destinataire ? ' · ' + esc(o.destinataire) : '') + '</div>' +
+        '<div class="hbtns">' +
+          (recue
+            ? '<button type="button" class="ghost" data-undeliver="' + esc(o.id) + '">Remettre en attente</button>'
+            : '<button type="button" class="send" data-deliver="' + esc(o.id) + '" data-stock="1">Reçue + stock</button>' +
+              '<button type="button" class="ghost" data-deliver="' + esc(o.id) + '" data-stock="0">Reçue seulement</button>') +
+        '</div></article>';
+    }).join("");
+  }
+
+  function loadHist(){
+    return apiGet("orders")
+      .then(function(res){
+        if(res && res.ok){ orders = res.orders || []; histLoaded = true; }
+        renderHist();
+      })
+      .catch(function(){
+        hHost.innerHTML = '<div class="hcard"><div class="boot">Impossible de lire l\'historique.</div></div>';
+      });
+  }
+
+  hHost.addEventListener("click", function(e){
+    var b = e.target.closest("[data-deliver]") || e.target.closest("[data-undeliver]");
+    if(!b || busy) return;
+    var recu = !!b.getAttribute("data-deliver");
+    var id = b.getAttribute("data-deliver") || b.getAttribute("data-undeliver");
+    var stock = b.getAttribute("data-stock") === "1";
+    setBusy(true); setSync("Google Sheet · <b>mise à jour…</b>");
+    apiPost({action:"delivered", id:id, recu:recu, stock:stock})
+      .then(function(res){
+        setBusy(false);
+        setSync("Google Sheet · <b>" + ((res && res.ok) ? "enregistré" : "refusé") + "</b>");
+        return Promise.all([loadHist(), stock ? refreshAll() : null]);
+      })
+      .catch(function(){ setBusy(false); setSync("Google Sheet · <b>hors ligne</b>"); });
+  });
+
+  var hChips = {wait:document.getElementById("h-wait"), all:document.getElementById("h-all")};
+  Object.keys(hChips).forEach(function(k){
+    hChips[k].addEventListener("click", function(){
+      hFilter = k;
+      Object.keys(hChips).forEach(function(j){ hChips[j].setAttribute("aria-pressed", String(j === k)); });
+      renderHist();
+    });
+  });
+  document.getElementById("histRefresh").addEventListener("click", loadHist);
+
   /* --------------------------------------------------------------- saisie */
   function focusForm(){
     var inp = host.querySelector(".mvform input");
@@ -837,6 +941,7 @@
           if(res && res.ok){
             sup.products.forEach(function(p,i){ order[key(sup,i)] = {on:false, q:suggest(sup,p)}; });
             setSync("Google Sheet · <b>commande envoyée</b>");
+            loadHist();
           } else setSync("Google Sheet · <b>envoi refusé</b>");
           renderOrders();
         })
@@ -885,18 +990,22 @@
     });
   });
 
-  var tabStock = document.getElementById("tab-stock"), tabOrders = document.getElementById("tab-orders");
-  var panStock = document.getElementById("panel-stock"), panOrders = document.getElementById("panel-orders");
+  var TABS = {
+    stock:  {tab:document.getElementById("tab-stock"),  pan:document.getElementById("panel-stock")},
+    orders: {tab:document.getElementById("tab-orders"), pan:document.getElementById("panel-orders")},
+    hist:   {tab:document.getElementById("tab-hist"),   pan:document.getElementById("panel-hist")}
+  };
   function selectTab(which){
-    var isStock = which === "stock";
-    tabStock.setAttribute("aria-selected", String(isStock));
-    tabOrders.setAttribute("aria-selected", String(!isStock));
-    panStock.hidden = !isStock;
-    panOrders.hidden = isStock;
-    if(!isStock) renderOrders();
+    Object.keys(TABS).forEach(function(k){
+      TABS[k].tab.setAttribute("aria-selected", String(k === which));
+      TABS[k].pan.hidden = k !== which;
+    });
+    if(which === "orders") renderOrders();
+    if(which === "hist"){ renderHist(); loadHist(); }
   }
-  tabStock.addEventListener("click", function(){ selectTab("stock"); });
-  tabOrders.addEventListener("click", function(){ selectTab("orders"); });
+  Object.keys(TABS).forEach(function(k){
+    TABS[k].tab.addEventListener("click", function(){ selectTab(k); });
+  });
 
   function loadMoves(){
     apiGet("data").then(function(res){
@@ -930,8 +1039,9 @@
   tickClock();
   setInterval(tickClock, 30000);
   setInterval(function(){ if(!busy && !openForm && !confirmFor) refreshAll(); }, 120000);
-  render(); renderOrders();
+  render(); renderOrders(); renderHist();
   refreshAll();
+  loadHist();
 })();
 </script>
 </body>
