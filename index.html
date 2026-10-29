@@ -4,7 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SlideKick</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23EB733A'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='bold' text-anchor='middle' fill='%230D0D0D'%3ESK%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/png;base64,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">
+<!-- Écran d'accueil iPad / iPhone. iOS ne lit QUE apple-touch-icon, et il lui
+     faut un vrai fichier PNG à côté de index.html : une image en data: ne
+     marche pas de façon fiable. Sans ça, iOS met une capture de la page. -->
+<link rel="apple-touch-icon" sizes="180x180" href="icone-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SlideKick">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#EB733A">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
   :root{
@@ -14,6 +24,9 @@
     --accent:#EB733A; --accent-text:#C0511B; --accent-soft:#FFF1E8; --on-accent:#0D0D0D;
     --fill:#0D0D0D; --on-fill:#FFFFFF;
     --bar:#FFFFFF; --bar-ink:#0D0D0D; --bar-muted:#767676; --bar-line:#E4E4E4;
+    --band:#161311; --band-ink:#FFFFFF; --band-muted:rgba(255,255,255,.62); --band-line:rgba(255,255,255,.2);
+    --mark:#EB733A; --mark-soft:#A39C95; --piste:#F0EEEC; --aire:#FDEADF;
+    --weekend:#F7F5F3; --grid:#ECECEC; --grid-strong:#C4C4C4;
     --r:8px;
     --sans:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
     --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -26,6 +39,9 @@
       --accent:#EB733A; --accent-text:#F2955F; --accent-soft:#25150B; --on-accent:#0D0D0D;
       --fill:#FAFAFA; --on-fill:#0D0D0D;
       --bar:#151515; --bar-ink:#FAFAFA; --bar-muted:#8E8E8E; --bar-line:rgba(255,255,255,.14);
+    --band:#161311; --band-ink:#FFFFFF; --band-muted:rgba(255,255,255,.62); --band-line:rgba(255,255,255,.2);
+      --mark:#EB733A; --mark-soft:#6F6862; --piste:#242220; --aire:#2A1A11;
+      --weekend:#191817; --grid:#262626; --grid-strong:#464646;
       color-scheme: dark;
     }
   }
@@ -36,6 +52,9 @@
     --accent:#EB733A; --accent-text:#F2955F; --accent-soft:#25150B; --on-accent:#0D0D0D;
     --fill:#FAFAFA; --on-fill:#0D0D0D;
     --bar:#151515; --bar-ink:#FAFAFA; --bar-muted:#8E8E8E; --bar-line:rgba(255,255,255,.14);
+    --band:#161311; --band-ink:#FFFFFF; --band-muted:rgba(255,255,255,.62); --band-line:rgba(255,255,255,.2);
+    --mark:#EB733A; --mark-soft:#6F6862; --piste:#242220; --aire:#2A1A11;
+    --weekend:#191817; --grid:#262626; --grid-strong:#464646;
     color-scheme: dark;
   }
 
@@ -60,13 +79,15 @@
   }
   .topbar .wrap{display:flex; align-items:center; gap:18px; flex-wrap:wrap; padding-block:13px}
   .brand{display:flex; align-items:center; gap:11px; margin-right:auto}
-  .mark{
-    width:34px; height:34px; display:grid; place-items:center; flex:none;
-    background:var(--accent); color:var(--on-accent); border-radius:4px;
-    font-family:var(--mono); font-size:13px; font-weight:700; letter-spacing:.02em;
+  .logo{display:block; flex:none; color:var(--accent); line-height:0}
+  .logo-svg{display:block; height:38px; width:auto}
+  .brandsep{width:1px; align-self:stretch; background:var(--line); flex:none; margin-inline:2px}
+  @media (max-width:420px){ .logo-svg{height:30px} }
+  .brand h1{
+    font-family:var(--mono); font-size:11.5px; font-weight:600; line-height:1.4;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--ink-2); max-width:19ch;
   }
-  .brand h1{font-size:17px; font-weight:700; letter-spacing:-.01em; color:var(--bar-ink)}
-  .brand p{margin:0; font-family:var(--mono); font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--bar-muted)}
+  @media (max-width:520px){ .brand h1{font-size:10.5px; letter-spacing:.1em; max-width:11ch} }
   .tabs{display:flex; gap:3px; background:var(--surface-2); border:1px solid var(--bar-line); border-radius:8px; padding:3px}
   .tab{
     display:inline-flex; align-items:center; gap:7px;
@@ -151,24 +172,37 @@
   .chip[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#0D0D0D; font-weight:600}
 
   /* ---- supplier ---- */
-  .sup{background:var(--surface); border:2px solid var(--accent); border-radius:var(--r); margin-bottom:14px; overflow:hidden}
-  .sup-head{display:flex; gap:14px; flex-wrap:wrap; align-items:flex-start; padding:13px 16px; background:var(--accent)}
-  .sup-id{margin-right:auto; min-width:0}
-  .sup-id h2{font-size:14px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#0D0D0D}
-  .sup-rules{font-size:12.5px; color:rgba(13,13,13,.72); margin-top:4px}
-  .sup-rules b{font-weight:600; color:#0D0D0D}
+  .sup{
+    background:var(--surface); border:2px solid var(--line-strong); border-radius:10px;
+    margin-bottom:22px; overflow:hidden;
+  }
+  .sup.alerte{border-color:var(--accent)}
+  .sup-head{
+    display:flex; gap:14px; flex-wrap:wrap; align-items:center;
+    padding:15px 18px; background:var(--surface-2); border-bottom:2px solid var(--line);
+  }
+  .sup.alerte .sup-head{border-bottom-color:color-mix(in srgb, var(--accent) 35%, var(--line))}
+  .sup-head.clic{cursor:pointer}
+  .sup-head.clic:hover{background:var(--line)}
+  .sup-id{margin-right:auto; min-width:0; display:flex; align-items:center; gap:11px; flex-wrap:wrap}
+  .sup-id h2{font-size:19px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--ink); line-height:1.1}
+  .sup-rules{font-size:12.5px; color:var(--muted); margin-top:5px; flex:0 0 100%}
+  .sup-rules b{font-weight:600; color:var(--ink-2)}
+  .supcount{font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:99px; background:var(--accent); color:#0D0D0D; white-space:nowrap}
+  .supcount.calme{background:transparent; color:var(--muted); border:1px solid var(--line-strong); font-weight:500}
+  .chev{font-family:var(--mono); font-size:13px; color:var(--muted)}
   .pills{display:flex; gap:7px; flex-wrap:wrap; align-items:center}
   .pill{
     display:inline-flex; align-items:center; gap:6px;
     font-size:12.5px; font-weight:500; padding:5px 11px; border-radius:99px; border:1px solid transparent;
   }
   .pill::before{content:""; width:7px; height:7px; border-radius:50%; background:currentColor; flex:none}
-  .pill.ok{background:#0D0D0D; color:#FFFFFF; border-color:#0D0D0D; font-weight:600}
-  .pill.closed{background:transparent; color:rgba(13,13,13,.66); border-color:rgba(13,13,13,.3)}
-  .pill.unknown{background:rgba(255,255,255,.72); color:#0D0D0D; border-color:#0D0D0D; border-style:dashed}
-  .pill.flat{background:transparent; color:rgba(13,13,13,.6); border-color:rgba(13,13,13,.22)}
+  .pill.ok{background:var(--fill); color:var(--on-fill); border-color:var(--fill); font-weight:600}
+  .pill.closed{background:transparent; color:var(--muted); border-color:var(--line-strong)}
+  .pill.unknown{background:var(--accent-soft); color:var(--accent-text); border-color:color-mix(in srgb, var(--accent) 45%, transparent); border-style:dashed}
+  .pill.flat{background:transparent; color:var(--muted); border-color:var(--line)}
   .pill.flat::before{display:none}
-  .pill.avance{background:rgba(255,255,255,.8); color:#0D0D0D; border-color:#0D0D0D}
+  .pill.avance{background:transparent; color:var(--ink); border-color:var(--ink-2)}
 
   /* ---- product blocks ---- */
   .pgrid{display:grid; grid-template-columns:repeat(auto-fill, minmax(238px, 1fr)); gap:10px; padding:14px 16px}
@@ -323,8 +357,144 @@
   .htag{font-size:11.5px; font-weight:700; padding:3px 9px; border-radius:99px; white-space:nowrap}
   .htag.attente{background:var(--accent); color:#0D0D0D}
   .htag.recue{background:transparent; color:var(--muted); border:1px solid var(--line-strong)}
+  .rec{background:var(--surface); border:2px solid var(--accent); border-radius:10px; margin-top:16px; overflow:hidden}
+  .rec.off{border-color:var(--line-strong)}
+  .rec.off{border-style:dashed}
+  .rec-head{display:flex; gap:12px; flex-wrap:wrap; align-items:baseline; padding:14px 18px;
+            background:var(--surface-2); border-bottom:2px solid var(--line)}
+  .rec-head h2{font-size:14px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink)}
+  .rec-head .what{font-size:13px; color:var(--muted)}
+  .rec-body{padding:13px 16px; display:flex; gap:14px; flex-wrap:wrap; align-items:center}
+  .rec-body .when{margin-right:auto; min-width:0}
+  .rec-body .when b{font-size:14.5px; font-weight:700}
+  .rec-body .when span{display:block; font-size:12.5px; color:var(--muted); margin-top:3px}
+  .rec-body .when span.late{color:var(--accent-text); font-weight:600}
+  .rec select{
+    font:inherit; font-family:var(--mono); font-size:13px; padding:7px 8px;
+    background:var(--surface); color:var(--ink); border:1px solid var(--line-strong); border-radius:5px;
+  }
   .plain{background:none; border:0; padding:4px 2px; font-size:12.5px; color:var(--muted); cursor:pointer; text-decoration:underline}
   .plain:hover{color:var(--ink)}
+
+  /* ------------------------------------------------ onglet Coup d'œil */
+  .carte{background:var(--surface); border:2px solid var(--line-strong); border-radius:12px; margin-top:20px; overflow:hidden}
+  .carte.vedette{border-color:var(--accent)}
+  .tete{padding:19px 22px 17px; border-bottom:2px solid var(--line)}
+  .eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:.15em; text-transform:uppercase; color:var(--accent-text); font-weight:600}
+  .tete h2{margin:7px 0 0; font-size:22px; font-weight:700; letter-spacing:-.02em; line-height:1.15}
+  .tete .sous{margin:8px 0 0; font-size:13.5px; color:var(--ink-2); max-width:70ch}
+  .chiffres{display:flex; gap:26px; flex-wrap:wrap; margin-top:15px}
+  .chiffre b{display:block; font-family:var(--mono); font-size:28px; font-weight:700; letter-spacing:-.02em; line-height:1; font-variant-numeric:tabular-nums}
+  .chiffre b.alerte{color:var(--accent-text)}
+  .chiffre span{display:block; font-size:12px; color:var(--muted); margin-top:5px; max-width:22ch}
+  .corps{padding:20px 22px 8px; overflow-x:auto}
+  .viz{width:100%; height:auto; display:block; overflow:visible}
+  .corps.large .viz{min-width:720px}
+
+  .t-lab{font-family:var(--sans); font-size:12.5px; fill:var(--ink-2)}
+  .t-val{font-family:var(--mono); font-size:12.5px; font-weight:700; fill:var(--ink)}
+  .t-pct{font-family:var(--mono); font-size:10.5px; font-weight:600; fill:var(--muted); text-anchor:end}
+  .t-axis{font-family:var(--mono); font-size:10.5px; fill:var(--muted)}
+  .t-jour{font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.09em; fill:var(--muted)}
+  .t-num{font-family:var(--mono); font-size:15px; font-weight:700; fill:var(--ink)}
+  .t-today{font-family:var(--mono); font-size:9.5px; font-weight:700; letter-spacing:.13em; fill:var(--ink)}
+  .t-liv{font-family:var(--mono); font-size:9.5px; font-weight:600; letter-spacing:.08em; fill:var(--accent-text)}
+  .t-pt{font-family:var(--sans); font-size:11px; font-weight:500; fill:var(--ink-2)}
+  .pt, .row{cursor:default}
+  .pt:hover circle:last-of-type{r:8.5}
+
+  .legende{display:flex; gap:18px; flex-wrap:wrap; font-size:12.5px; color:var(--ink-2); padding:4px 22px 15px}
+  .legende span{display:inline-flex; align-items:center; gap:8px}
+  .puce{width:12px; height:12px; border-radius:50%; display:inline-block; flex:none}
+  .pied{padding:13px 22px 16px; border-top:1px solid var(--line); display:flex; gap:14px; flex-wrap:wrap; align-items:center}
+  .pied .note2{font-size:13px; color:var(--muted); margin-right:auto; max-width:62ch}
+  .tag{font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:5px 11px; border-radius:99px; white-space:nowrap}
+  .tag.ok{background:var(--accent); color:#0D0D0D; font-weight:700}
+  .tag.attente{background:transparent; border:1px solid var(--line-strong); color:var(--muted)}
+  .vide{padding:46px 22px; text-align:center; color:var(--muted); font-size:13.5px}
+  .vide b{display:block; color:var(--ink); font-size:15px; margin-bottom:7px}
+  .titreligne{display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-top:7px}
+  .titreligne h2{margin:0 auto 0 0; min-width:0}
+  .picker{display:flex; gap:9px; align-items:center; flex-wrap:wrap}
+  .picker label{font-size:12.5px; color:var(--muted)}
+  .picker select{
+    font:inherit; font-family:var(--mono); font-size:13px; padding:7px 9px; max-width:240px;
+    background:var(--surface); color:var(--ink); border:1px solid var(--line-strong); border-radius:6px;
+  }
+  .picker select:hover{border-color:var(--accent)}
+  .mois{display:flex; align-items:center; gap:4px; flex:none}
+  .mois .moislab{
+    font-family:var(--mono); font-size:12.5px; font-weight:600; color:var(--ink-2);
+    min-width:13ch; text-align:center;
+  }
+  .fl{
+    width:34px; height:34px; flex:none; display:grid; place-items:center;
+    font-size:19px; line-height:1; cursor:pointer;
+    background:var(--surface); color:var(--ink); border:1px solid var(--line-strong); border-radius:6px;
+  }
+  .fl:hover:not(:disabled){border-color:var(--accent); color:var(--accent-text)}
+  .fl:disabled{opacity:.3; cursor:default}
+
+  /* ---------------------------------------------- rapport imprimable */
+  .rapbar{
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    padding:13px 0 3px; margin-bottom:4px;
+  }
+  .rapquoi{font-size:13px; color:var(--muted); max-width:52ch}
+  .rap{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:28px 30px; margin-top:12px}
+  .rap-tete{border-bottom:3px solid var(--ink); padding-bottom:14px; margin-bottom:22px}
+  .rap-logo{color:var(--accent); line-height:0; margin-bottom:14px}
+  .rap-logo svg{height:30px; width:auto; display:block}
+  .rap-tete .ou{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+  .rap-tete h1{margin:6px 0 0; font-size:27px; font-weight:700; letter-spacing:-.02em}
+  .rap-tete .quand{margin:7px 0 0; font-size:13px; color:var(--muted)}
+  .rap-clefs{display:flex; gap:30px; flex-wrap:wrap; margin:18px 0 26px}
+  .rap-clefs div b{display:block; font-family:var(--mono); font-size:24px; font-weight:700; line-height:1; font-variant-numeric:tabular-nums}
+  .rap-clefs div span{display:block; font-size:11.5px; color:var(--muted); margin-top:5px; max-width:20ch}
+  .rap h2{
+    font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+    border-bottom:1px solid var(--line-strong); padding-bottom:7px; margin:30px 0 13px;
+  }
+  .rap h3{font-size:12.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-2); margin:17px 0 6px}
+  .rap table{width:100%; border-collapse:collapse; font-size:13px}
+  .rap th{
+    text-align:left; font-family:var(--mono); font-size:10.5px; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+    border-bottom:1px solid var(--line); padding:5px 8px 5px 0;
+  }
+  .rap td{padding:5px 8px 5px 0; border-bottom:1px solid var(--line); vertical-align:baseline}
+  .rap td.n, .rap th.n{text-align:right; font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap}
+  .rap tr.bas td{color:var(--accent-text); font-weight:600}
+  .rap .ec{font-family:var(--mono); font-size:11.5px; white-space:nowrap}
+  .rap .ec.plus{color:var(--accent-text)}
+  .rap .ec.moins{color:var(--muted)}
+  .rap .rien{font-size:13px; color:var(--muted); padding:10px 0}
+  .rap-pied{margin-top:30px; padding-top:13px; border-top:1px solid var(--line); font-size:11.5px; color:var(--muted)}
+
+  @media print{
+    @page{ margin:14mm; }
+    html, body{background:#FFFFFF !important; color:#000000 !important; font-size:11pt}
+    .topbar, .clockbar, .noprint, footer, #panel-vue, #panel-stock, #panel-orders, #panel-hist{display:none !important}
+    .wrap{max-width:none; padding:0}
+    .rap{border:0; padding:0; margin:0; background:#FFFFFF !important}
+    .rap-tete h1{font-size:20pt}
+    .rap h2{page-break-after:avoid; break-after:avoid; margin-top:18pt}
+    .rap h3{page-break-after:avoid; break-after:avoid}
+    .rap table{page-break-inside:auto}
+    .rap tr{page-break-inside:avoid; break-inside:avoid}
+    .rap thead{display:table-header-group}
+    .rap .section{page-break-inside:auto}
+    .rap .saut{page-break-before:always; break-before:page}
+    /* on repart du noir partout, sinon le thème sombre imprime du gris clair */
+    .rap, .rap *{color:#000000 !important}
+    .rap td, .rap th{border-color:#CCCCCC !important}
+    .rap-tete{border-bottom-color:#000000 !important}
+    .rap h2{border-bottom-color:#999999 !important}
+    .rap th, .rap-tete .ou, .rap-tete .quand, .rap-clefs div span,
+    .rap-pied, .rap .rien, .rap .ec.moins{color:#555555 !important}
+    .rap tr.bas td, .rap .ec.plus{color:#000000 !important; font-weight:700}
+    .rap-logo, .rap-logo *{color:#EB733A !important}
+  }
 </style>
 </head>
 <body>
@@ -332,16 +502,15 @@
 <header class="topbar">
   <div class="wrap">
     <div class="brand">
-      <span class="mark" aria-hidden="true">SK</span>
-      <div>
-        <h1>SlideKick</h1>
-        <p id="brandSub">Slide Coffee</p>
-      </div>
+      <span class="logo"><svg class="logo-svg" viewBox="890 3774 6156 2673" xmlns="http://www.w3.org/2000/svg" fill="currentColor" fill-rule="nonzero" role="img" aria-label="Slide Coffee"><path d="M 5219.4 5380 C 5124 5417.1 5046.1 5433.8 4967 5434.1 L 4330.6 5436.8 L 4330.7 4172.6 L 4432.6 4173 L 4432.5 5269.4 L 5098.1 5266.6 C 5191.7 5266.3 5276.7 5243.3 5361.2 5210.4 C 5401.6 5194.2 5438.8 5173.6 5472.6 5149.3 C 5418.9 5254.7 5331.8 5334.8 5219.4 5380 M 4899.9 4509.6 C 4952.8 4513.8 5003.3 4527.3 5039.3 4566.6 C 5066.3 4596.3 5086.2 4638.7 5089.9 4682.8 C 5095.8 4755.4 5097.9 4826 5092.4 4894.6 C 5079.3 4898.5 5065.6 4901.1 5051.3 4902.2 C 5000 4906.1 4950.5 4905.3 4899.9 4904.4 Z M 4899.9 4312.7 C 4989.2 4312.5 5104.3 4298 5170.2 4370.1 C 5197.3 4399.7 5217.2 4442.1 5220.8 4486.3 C 5228.1 4575.7 5229.9 4662 5218.4 4745.4 C 5209.6 4808.9 5173.6 4857.4 5122.5 4882.9 C 5126.3 4823.5 5125.1 4757.7 5118.8 4680.5 C 5114.8 4631.7 5093.6 4583 5060.7 4547 C 5017.7 4500.1 4958.4 4484.9 4899.9 4480.5 Z M 5325 3993.2 C 5245.8 3969.1 5165.2 3949.5 5079 3949.2 L 4432.6 3946.9 L 4432.6 4143.9 L 4301.6 4143.4 L 4301.6 5465.9 L 4967.1 5463.1 C 5060.8 5462.8 5145.8 5439.8 5230.2 5406.9 C 5368.8 5351.2 5470.5 5245 5522.5 5108.2 C 5594.8 5040.6 5646.4 4952.6 5672.7 4851 C 5710 4707 5712.3 4559.1 5682.6 4409.1 C 5642.5 4205.2 5518.6 4059.8 5325 3993.2 "/><path d="M 2012.7 5319.2 C 1939.3 5386.9 1840.2 5430.5 1718.1 5448.8 C 1668.1 5456.3 1610.9 5460.4 1552.6 5460.4 C 1302.7 5460.4 1103 5393 1018.4 5280.2 C 956.8 5198.1 942.9 5090.7 943.6 5006.9 L 973.2 5006.7 L 1075.8 5006.7 C 1088 5040.2 1104.5 5072.2 1126.1 5101.2 C 1267.8 5290 1643.7 5312.6 1853.4 5281 C 1940.2 5267.9 2023.4 5241.8 2095.9 5195.7 C 2076.9 5244.2 2049.2 5285.5 2012.7 5319.2 M 1046.3 4781.5 C 1046.2 4783.7 1046.2 4785.9 1046.1 4788.1 C 1043.8 4785.6 1041.3 4783.3 1039 4780.8 C 989.4 4726.6 965.3 4654.5 963.3 4553.9 C 961.3 4452.9 992.5 4368.8 1056.2 4303.9 C 1060.1 4299.8 1064.4 4296 1068.6 4292.1 C 1066 4313 1064.8 4334.9 1065.2 4357.9 C 1067.1 4449.3 1085.6 4535.3 1148.6 4603.9 C 1208 4668.7 1280 4714.9 1364.7 4740.8 C 1448.2 4766.2 1529.5 4786.8 1615.1 4804.8 C 1648.8 4811.9 1732.8 4827.4 1778.5 4851 C 1802.2 4863.3 1812.2 4892.9 1798.8 4915.9 C 1798.1 4917.2 1797.3 4918.3 1796.5 4919.4 C 1750.9 4983.5 1588.5 4995 1520.2 4909 C 1484.3 4864 1486.3 4807.3 1489.1 4781.2 L 1104 4781.2 Z M 1571.6 4279 C 1616.1 4259.5 1696.9 4261.4 1734.8 4268.8 C 1765.9 4274.9 1779.4 4289.4 1784.3 4293.9 C 1823.6 4330.1 1820 4386.9 1819 4398.8 C 1899.9 4398.8 1980.7 4398.7 2061.6 4398.7 C 2075.7 4431 2085 4466.1 2089 4503.2 C 2063.3 4489.3 2036.1 4477.7 2008.1 4468.4 C 1916.6 4438 1826.4 4419.4 1732.3 4399.8 C 1676.6 4388.2 1624.3 4375.1 1572.2 4353.6 C 1569.4 4352.6 1566.6 4351.4 1564.1 4349.8 C 1536.6 4333.1 1542.1 4291.9 1571.6 4279 M 2119.8 4521.4 C 2117.3 4478.2 2108.4 4437 2093.3 4398.7 C 2145.2 4398.7 2197.2 4398.6 2249.1 4398.6 C 2264.5 4249.1 2209.6 4114.7 2086.4 4033.7 C 1973.6 3959.7 1850.5 3933.1 1716.2 3926.4 C 1464.6 3913.8 1142.4 3984.5 1077.1 4246.8 C 989 4314.5 931.5 4413.7 934.3 4554.5 C 936.1 4645.8 954.7 4731.8 1017.6 4800.5 C 1026.6 4810.3 1036 4819.5 1045.6 4828.5 C 1046.4 4878 1052.5 4929 1066.5 4977.7 L 973.1 4977.7 L 915.4 4978 C 910.3 5085 926.7 5206.4 995.2 5297.7 C 1136.9 5486.6 1512.7 5509.1 1722.4 5477.5 C 1837.7 5460.2 1946.4 5419.8 2032.3 5340.6 C 2084.2 5292.6 2117.4 5233 2135.9 5167.2 C 2145.3 5159.9 2154.4 5152.2 2163.3 5144 C 2236.4 5076.5 2272.5 4985.6 2282.7 4887.1 C 2291.9 4799.3 2285 4710.1 2236 4635.4 C 2205.5 4588.9 2165.6 4551 2119.8 4521.4 "/><path d="M 3635.1 5438.7 L 3635 4172.3 L 3737 4172.3 L 3737 5271.2 L 4044.1 5271.2 L 4044.1 5438.7 Z M 4204 3946.7 L 3736.9 3946.7 L 3737 4143.3 L 3606 4143.3 L 3606.1 5467.8 L 4073.1 5467.8 L 4073.1 5271.2 L 4204.1 5271.2 Z M 4204 3946.7 "/><path d="M 6866.2 4426.2 L 6326.9 4426.2 L 6326.9 4311.4 L 6866.2 4311.4 Z M 6866.2 5269.4 L 6866.2 5436.9 L 5757.4 5436.9 L 5757.4 4172.7 L 5859.3 4172.7 L 5859.3 5269.4 Z M 6326.9 4790.4 L 6753.5 4790.4 L 6753.5 4905.2 L 6326.9 4905.2 Z M 7026.1 4311.4 L 7026.1 3947.2 L 5859.3 3947.2 L 5859.3 4143.7 L 5728.4 4143.7 L 5728.4 5465.9 L 6895.2 5465.9 L 6895.2 5269.4 L 7026.1 5269.4 L 7026.1 4905.2 L 6782.6 4905.2 L 6782.6 4790.4 L 6913.5 4790.4 L 6913.5 4426.2 L 6895.2 4426.2 L 6895.2 4311.4 Z M 7026.1 4311.4 "/><path d="M 3375.5 5438.3 C 3305.7 5436.4 3237.6 5427 3171.6 5411.1 L 2921.3 5171.8 L 3133.9 5401.2 C 3112.6 5395.1 3091.5 5388.3 3070.6 5380.8 L 2815.4 5136.9 L 3025.3 5363.3 C 2617.4 5194.4 2326.4 4760.3 2326.4 4252.7 C 2326.4 4225.9 2327.2 4199.2 2328.8 4172.7 L 2433.5 4172.7 C 2442 4271 2461.1 4365.8 2489.7 4455.8 L 2405.8 4375.7 L 2494.7 4471.6 C 2499.4 4485.7 2504.3 4499.6 2509.4 4513.4 L 2345 4356.2 L 2522.9 4548.1 C 2674.2 4923.3 2993.3 5198.4 3375.5 5258.7 Z M 3504.9 4884.3 C 3492.2 4883.6 3479.7 4882.5 3467.2 4881 L 3348.8 4767.9 L 3451.7 4878.9 C 3136.1 4830.6 2892.2 4508.4 2892.2 4118 C 2892.2 4059.3 2897.7 4002.1 2908.2 3947.1 L 2432.7 3947.1 C 2431.1 3967.3 2430 3987.6 2429.3 4008.1 L 2205.4 3794 L 2428.6 4034.9 C 2428.5 4041.8 2428.4 4048.6 2428.4 4055.5 L 2327 3958.7 L 2428.5 4068.2 C 2428.7 4093.5 2429.6 4118.7 2431.2 4143.7 L 2301.7 4143.7 C 2298.8 4179.6 2297.4 4216 2297.4 4252.7 C 2297.4 4923.8 2792.4 5467.8 3403 5467.8 L 3404.5 5467.8 L 3404.5 5262.9 C 3447 5268.3 3490.2 5271.2 3534 5271.2 L 3535.5 5271.2 L 3535.5 4885.1 L 3274.2 4635.3 Z M 3504.9 4884.3 "/><path d="M 3083.9 6303.9 C 3022.1 6303.9 2990 6268.8 2990 6222.1 C 2990 6175.5 3025.1 6138 3082.7 6138 C 3119 6138 3153.5 6150.7 3177.7 6168.8 L 3212.9 6055 C 3186.2 6036.9 3138.4 6014.5 3063.9 6014.5 C 2921 6014.5 2835 6108.9 2835 6224.5 C 2835 6327.5 2901.6 6427.4 3063.9 6427.4 C 3146.2 6427.4 3202.5 6394.7 3223.1 6375.9 L 3185.6 6267.5 C 3165.6 6282.7 3128.6 6303.9 3083.9 6303.9 "/><path d="M 3457 6298.4 C 3413.4 6298.4 3380.1 6269.9 3380.1 6219.7 C 3380.1 6174.3 3413.4 6143.4 3457 6143.4 C 3500.6 6143.4 3533.3 6174.3 3533.3 6219.7 C 3533.3 6269.9 3500.6 6298.4 3457 6298.4 M 3457 6014.5 C 3323.2 6014.5 3229.4 6102.9 3229.4 6218.5 C 3229.4 6344.4 3322.6 6427.4 3457 6427.4 C 3596.3 6427.4 3684.1 6338.4 3684.1 6218.5 C 3684.1 6102.9 3589.6 6014.5 3457 6014.5 "/><path d="M 3721.8 6420.1 L 3862.9 6420.1 L 3862.9 6302.6 L 4018.5 6302.6 L 4018.5 6197.3 L 3862.9 6197.3 L 3862.9 6145.2 L 4043.3 6145.2 L 4043.3 6021.7 L 3721.8 6021.7 Z M 3721.8 6420.1 "/><path d="M 4078 6420.1 L 4219.1 6420.1 L 4219.1 6302.6 L 4374.7 6302.6 L 4374.7 6197.3 L 4219.1 6197.3 L 4219.1 6145.2 L 4399.5 6145.2 L 4399.5 6021.7 L 4078 6021.7 Z M 4078 6420.1 "/><path d="M 4575.3 6264.5 L 4728.5 6264.5 L 4728.5 6174.3 L 4575.3 6174.3 L 4575.3 6135.6 L 4756.9 6135.6 L 4756.9 6021.7 L 4434.2 6021.7 L 4434.2 6420.1 L 4764.8 6420.1 L 4764.8 6306.9 L 4575.3 6306.9 Z M 4575.3 6264.5 "/><path d="M 4946.6 6306.9 L 4946.6 6264.5 L 5099.8 6264.5 L 5099.8 6174.3 L 4946.6 6174.3 L 4946.6 6135.6 L 5128.2 6135.6 L 5128.2 6021.7 L 4805.5 6021.7 L 4805.5 6420.1 L 5136.1 6420.1 L 5136.1 6306.9 Z M 4946.6 6306.9 "/></svg></span>
+      <span class="brandsep" aria-hidden="true"></span>
+      <h1 id="brandSub">Stock &amp; Order Management</h1>
     </div>
     <nav class="tabs" role="tablist" aria-label="Sections">
       <button class="tab" id="tab-stock" role="tab" aria-selected="true" aria-controls="panel-stock">Gestion de stock</button>
       <button class="tab" id="tab-orders" role="tab" aria-selected="false" aria-controls="panel-orders">Commandes <span class="badge" id="ordBadge" hidden>0</span></button>
       <button class="tab" id="tab-hist" role="tab" aria-selected="false" aria-controls="panel-hist">Historique <span class="badge" id="histBadge" hidden>0</span></button>
+      <button class="tab" id="tab-vue" role="tab" aria-selected="false" aria-controls="panel-vue">Coup d'œil</button>
     </nav>
   </div>
 </header>
@@ -405,6 +574,7 @@
 
   <section id="panel-orders" role="tabpanel" aria-labelledby="tab-orders" hidden>
     <div id="alertBox"></div>
+    <div id="recur"></div>
     <div class="controls">
       <div class="chips" role="group" aria-label="Filtres commandes">
         <button class="chip" id="o-todo" aria-pressed="true" type="button">À commander</button>
@@ -414,6 +584,36 @@
     <div id="orders"></div>
     <footer>
       <p>Les produits sous le seuil sont cochés d'office et la quantité proposée remonte le stock au double du minimum. Le bouton d'envoi reste bloqué tant que la fenêtre de commande est fermée ou que le minimum du fournisseur n'est pas atteint.</p>
+    </footer>
+  </section>
+
+  <section id="panel-rapport" hidden>
+    <div class="rapbar noprint">
+      <button class="ghost" id="rapRetour" type="button">&#8249; Retour aux graphiques</button>
+      <div class="chips" role="group" aria-label="Période du rapport">
+        <button class="chip" id="rap-sem" aria-pressed="true" type="button">Semaine</button>
+        <button class="chip" id="rap-mois" aria-pressed="false" type="button">Mois</button>
+      </div>
+      <div class="mois" role="group" aria-label="Changer de période">
+        <button type="button" class="fl" id="rapPrec" aria-label="Période précédente">&#8249;</button>
+        <span class="moislab" id="rapLab">—</span>
+        <button type="button" class="fl" id="rapSuiv" aria-label="Période suivante" disabled>&#8250;</button>
+      </div>
+      <span style="flex:1"></span>
+      <button class="dark" id="rapImprime" type="button">Imprimer / PDF</button>
+    </div>
+    <div id="rapport"><div class="boot">Préparation du rapport…</div></div>
+  </section>
+
+  <section id="panel-vue" role="tabpanel" aria-labelledby="tab-vue" hidden>
+    <div class="rapbar noprint">
+      <span class="rapquoi">Un récapitulatif imprimable de la consommation, des commandes et du stock.</span>
+      <span style="flex:1"></span>
+      <button class="dark" id="ouvrirRapport" type="button">Rapport imprimable</button>
+    </div>
+    <div id="vue"><div class="boot">Lecture des mouvements…</div></div>
+    <footer>
+      <p>Les trois graphiques se calculent à partir des sorties saisies dans l'onglet Gestion de stock et des commandes de l'onglet Historique. Rien à régler : ils se remplissent tout seuls à mesure que l'équipe travaille.</p>
     </footer>
   </section>
 </main>
@@ -435,16 +635,21 @@
   var SUPS = [], CAFE = "Slide Coffee", moves = [];
   var openForm = null, order = {}, sentState = {};
   var filter = "all", oFilter = "todo", query = "", confirmFor = null, busy = false, loaded = false;
+  var openSup = {};        // fournisseurs dépliés dans l'onglet stock
   var previewCache = {};   // aperçu rendu par le Sheet, modèle du fournisseur compris
   var orders = [], hFilter = "wait", histLoaded = false, histFlash = {};
+  var RECS = [], recFlash = {}, recSupporte = true;
 
   var host = document.getElementById("suppliers");
   var oHost = document.getElementById("orders");
 
   /* ------------------------------------------------------------- réseau */
-  function apiGet(action){
-    return fetch(API + "?action=" + encodeURIComponent(action), {method:"GET", redirect:"follow"})
-      .then(function(r){ return r.json(); });
+  function apiGet(action, params){
+    var url = API + "?action=" + encodeURIComponent(action);
+    if(params) Object.keys(params).forEach(function(k){
+      url += "&" + k + "=" + encodeURIComponent(params[k]);
+    });
+    return fetch(url, {method:"GET", redirect:"follow"}).then(function(r){ return r.json(); });
   }
   function apiPost(payload){
     payload.cle = CLE;
@@ -613,16 +818,25 @@
       });
       if(!any) return;
       var dl = deliveryLabel(sup, w);
-      html += '<section class="sup">' +
-        '<div class="sup-head"><div class="sup-id"><h2>' + esc(sup.name) + '</h2>' +
-          '<div class="sup-rules"><b>' + esc(rulesText(sup)) + '</b>' +
-            (sup.minEur ? ' · minimum ' + fmtEur(sup.minEur) : '') +
-            (sup.minQty ? ' · minimum ' + sup.minQty.v + " " + esc(sup.minQty.u) : '') +
-            (sup.note ? ' · ' + esc(sup.note) : '') +
-            (sup.email ? ' · ' + esc(sup.email) : ' · contact à confirmer') + '</div></div>' +
+      var nAlerte = sup.products.filter(function(p){ return pState(sup,p) === "crit"; }).length;
+      // déplié d'office s'il y a une alerte, ou dès qu'on cherche / filtre
+      var force = !!query || filter !== "all";
+      var ouvert = force || (sup.id in openSup ? openSup[sup.id] : nAlerte > 0);
+      html += '<section class="sup ' + (nAlerte ? "alerte" : "") + '">' +
+        '<div class="sup-head' + (force ? '' : ' clic') + '"' + (force ? '' : ' data-sup="' + sup.id + '"') + '>' +
+          '<div class="sup-id"><h2>' + esc(sup.name) + '</h2>' +
+            (nAlerte
+              ? '<span class="supcount">' + nAlerte + ' sous le seuil</span>'
+              : '<span class="supcount calme">' + sup.products.length + ' produits</span>') +
+            (force ? '' : '<span class="chev">' + (ouvert ? "▾" : "▸") + '</span>') +
+            '<div class="sup-rules"><b>' + esc(rulesText(sup)) + '</b>' +
+              (sup.minEur ? ' · minimum ' + fmtEur(sup.minEur) : '') +
+              (sup.minQty ? ' · minimum ' + sup.minQty.v + " " + esc(sup.minQty.u) : '') +
+              (sup.note ? ' · ' + esc(sup.note) : '') +
+              (sup.email ? ' · ' + esc(sup.email) : ' · contact à confirmer') + '</div></div>' +
           '<div class="pills"><span class="pill ' + (w.kind==="ok"?"ok":w.kind==="avance"?"avance":w.kind==="closed"?"closed":"unknown") + '">' + esc(w.label) + '</span>' +
           '<span class="pill ' + dl.cls + '">' + esc(dl.txt) + '</span></div></div>' +
-        '<div class="pgrid">' + rows + '</div></section>';
+        (ouvert ? '<div class="pgrid">' + rows + '</div>' : '') + '</section>';
     });
     host.innerHTML = html || '<div class="sup"><div class="empty">Aucun produit ne correspond à ce filtre.</div></div>';
   }
@@ -715,9 +929,85 @@
     }
   }
 
+  function renderRecur(){
+    var box = document.getElementById("recur");
+    if(!recSupporte){
+      box.innerHTML = '<div class="rec off"><div class="rec-body"><div class="when">' +
+        '<b>Livraisons récurrentes indisponibles</b>' +
+        '<span>Le script publié ne les connaît pas encore. Dans l\'éditeur Apps Script : colle le dernier ' +
+        'Code.gs, lance <b>ajouterColonnesMailType</b>, puis Déployer → Gérer les déploiements → crayon → ' +
+        'Version : Nouvelle version.</span></div></div></div>';
+      return;
+    }
+    if(!RECS.length){
+      box.innerHTML = '<div class="rec off"><div class="rec-body"><div class="when">' +
+        '<b>Aucune livraison automatique</b>' +
+        '<span>Ajoute une ligne dans l\'onglet <b>Récurrentes</b> du Sheet pour qu\'elle apparaisse ici.</span>' +
+        '</div></div></div>';
+      return;
+    }
+    box.innerHTML = RECS.map(function(r){
+      var t = now();
+      var tard = false;
+      if(r.limite && !r.suspendue){
+        // on est en retard si le dernier créneau avant la livraison est déjà passé
+        var dj = (r.jour - t.day + 7) % 7;             // jours avant la livraison
+        var lj = (r.jour - DAYS.indexOf(r.limite.jourNom) + 7) % 7;  // écart limite → livraison
+        tard = dj < lj || (dj === lj && t.minutes >= hm(r.limite.heure));
+      }
+      return '<section class="rec ' + (r.suspendue ? "off" : "") + '">' +
+        '<div class="rec-head"><h2>Livraison automatique · ' + esc(r.fournisseur) + '</h2>' +
+          '<span class="what">' + esc(r.libelle) + ' · chaque ' + esc(r.jourNom) + '</span></div>' +
+        '<div class="rec-body"><div class="when">' +
+          (r.suspendue
+            ? '<b>Suspendue</b><span>Pas de livraison jusqu\'au ' + esc(r.suspendueJusqua) +
+              ' · reprise le ' + esc(r.prochaineTexte) + '</span>'
+            : '<b>Prochaine livraison ' + esc(r.prochaineTexte) + '</b>' +
+              (r.limite
+                ? '<span class="' + (tard ? "late" : "") + '">' +
+                  (tard ? "Trop tard pour celle-ci : le créneau de " + esc(r.limite.jourNom) + " " + esc(fmtH(r.limite.heure)) + " est passé"
+                        : "À suspendre avant " + esc(r.limite.jourNom) + " " + esc(fmtH(r.limite.heure))) + '</span>'
+                : '')) +
+        '</div>' +
+        (r.suspendue
+          ? '<button type="button" class="send" data-resume="' + esc(r.sid) + '">Maintenir finalement</button>'
+          : '<select id="recw-' + esc(r.sid) + '" aria-label="Durée de la suspension">' +
+              '<option value="1">1 semaine</option><option value="2">2 semaines</option>' +
+              '<option value="3">3 semaines</option><option value="4">4 semaines</option></select>' +
+            '<button type="button" class="send" data-suspend="' + esc(r.sid) + '">Suspendre la livraison</button>') +
+        '</div>' +
+        (recFlash[r.sid] ? '<div class="mail"><div class="flash ' + (recFlash[r.sid].ok ? "ok" : "err") + '">' +
+            esc(recFlash[r.sid].msg) + '</div></div>' : '') +
+      '</section>';
+    }).join("");
+  }
+
+  document.getElementById("recur").addEventListener("click", function(e){
+    var sus = e.target.closest("[data-suspend]"), rep = e.target.closest("[data-resume]");
+    if((!sus && !rep) || busy) return;
+    var sid = (sus || rep).getAttribute(sus ? "data-suspend" : "data-resume");
+    var payload = sus
+      ? {action:"suspend", sid:sid, semaines: parseInt((document.getElementById("recw-" + sid) || {}).value || "1", 10)}
+      : {action:"resume", sid:sid};
+    setBusy(true); setSync("Google Sheet · <b>envoi…</b>");
+    apiPost(payload)
+      .then(function(res){
+        setBusy(false);
+        recFlash[sid] = {ok: !!(res && res.ok), msg: (res && (res.msg || res.err)) || "Réponse inattendue."};
+        setSync("Google Sheet · <b>" + ((res && res.ok) ? "enregistré" : "refusé") + "</b>");
+        return refreshAll();
+      })
+      .catch(function(){
+        setBusy(false);
+        recFlash[sid] = {ok:false, msg:"Le Sheet n'a pas répondu."};
+        setSync("Google Sheet · <b>hors ligne</b>"); renderRecur();
+      });
+  });
+
   function renderOrders(){
     if(!loaded){ oHost.innerHTML = '<div class="sup"><div class="boot">Chargement…</div></div>'; return; }
     renderAlerts();
+    renderRecur();
     var html = "";
     sortedSuppliers().forEach(function(sup){
       ensureOrder(sup);
@@ -900,6 +1190,16 @@
   }
 
   host.addEventListener("click", function(e){
+    var head = e.target.closest("[data-sup]");
+    if(head){
+      var sid = head.getAttribute("data-sup");
+      var sup = supById(sid);
+      var defaut = sup ? sup.products.some(function(p){ return pState(sup,p) === "crit"; }) : false;
+      openSup[sid] = !(sid in openSup ? openSup[sid] : defaut);
+      openForm = null;
+      render();
+      return;
+    }
     var b = e.target.closest("[data-mv]");
     if(b){
       var k = b.getAttribute("data-k"), t = b.getAttribute("data-mv");
@@ -1001,18 +1301,558 @@
     });
   });
 
+  /* --------------------------------------------- onglet 4 : Coup d'œil */
+  /* Tous les chiffres viennent du Sheet (?action=stats) : ici on ne fait
+     que dessiner. Les SVG sont construits à la main, sans librairie.    */
+
+  var STATS = null, statsErr = null, semChoix = null;
+  var moisDec = 0, depChargement = false;   // 0 = ce mois-ci, -1 = le mois dernier…
+  var JSEM = ["dim","lun","mar","mer","jeu","ven","sam"];
+  var JCOURT = ["DIM","LUN","MAR","MER","JEU","VEN","SAM"];
+  var vueHost = document.getElementById("vue");
+
+  function loadStats(){
+    return apiGet("stats").then(function(res){
+      if(!res || !res.ok) throw new Error((res && res.err) || "réponse invalide");
+      STATS = res.stats; statsErr = null;
+      moisDec = (STATS.depenses && Number(STATS.depenses.decalage)) || 0;
+      renderVue();
+    }).catch(function(err){
+      statsErr = String(err && err.message ? err.message : err);
+      renderVue();
+    });
+  }
+
+  /* ne recharge que le bloc dépenses : inutile de tout recalculer pour
+     changer de mois.                                                     */
+  function loadDepenses(dec){
+    if(depChargement || !STATS) return;
+    moisDec = dec;
+    depChargement = true;
+    renderVue();
+    apiGet("depenses", {m: dec}).then(function(res){
+      depChargement = false;
+      if(res && res.ok && res.depenses) STATS.depenses = res.depenses;
+      moisDec = Number(STATS.depenses.decalage) || 0;   // le serveur fait foi
+      renderVue();
+    }).catch(function(){
+      depChargement = false;
+      moisDec = Number(STATS.depenses.decalage) || 0;
+      renderVue();
+    });
+  }
+
+  /* raccourcit un nom pour qu'il tienne sous une pastille (~5,9 px / caractère à 11 px).
+     La marge de 16 px empêche deux colonnes voisines de se toucher.            */
+  function court(t, largeur){
+    var nmax = Math.floor((largeur - 16) / 5.9);
+    return t.length <= nmax ? t : t.slice(0, Math.max(1, nmax - 1)).replace(/\s+$/, "") + "…";
+  }
+  function dateDe(iso, plus){
+    var a = String(iso).split("-");
+    return new Date(Number(a[0]), Number(a[1]) - 1, Number(a[2]) + (plus || 0));
+  }
+
+  /* ---- graphique 1 : horizon de rupture ---- */
+  function svgHorizon(st){
+    var n = st.horizon, W = 900, PAD = 18, AXE = 90, PAS = 32, R = 6.5;
+    var bande = (W - PAD * 2) / n;
+    function cx(j){ return PAD + bande * j + bande / 2; }
+
+    var jours = [], weekend = [];
+    for(var i = 0; i < n; i++){
+      var d = dateDe(st.jour0, i), w = d.getDay();
+      jours.push({w:w, num:d.getDate()});
+      if(w === 0 || w === 6) weekend.push(i);
+    }
+    var liv = {};
+    (st.livraisons || []).forEach(function(l){
+      if(!liv[l.jour]) liv[l.jour] = [];
+      if(liv[l.jour].indexOf(l.sup) === -1) liv[l.jour].push(l.sup);
+    });
+    var parJour = {};
+    (st.produits || []).forEach(function(p){
+      if(!parJour[p.jour]) parJour[p.jour] = [];
+      parJour[p.jour].push(p);
+    });
+    var hmax = 1;
+    Object.keys(parJour).forEach(function(k){ hmax = Math.max(hmax, parJour[k].length); });
+    var H = AXE + hmax * PAS + 40;
+
+    var o = ['<svg viewBox="0 0 ' + W + ' ' + H + '" class="viz" role="img" aria-label="Horizon de rupture">'];
+    weekend.forEach(function(j){
+      o.push('<rect x="' + (PAD + bande * j).toFixed(1) + '" y="44" width="' + bande.toFixed(1) +
+             '" height="' + (H - 62) + '" fill="var(--weekend)"/>');
+    });
+    o.push('<rect x="' + (PAD + 1).toFixed(1) + '" y="44" width="' + (bande - 2).toFixed(1) +
+           '" height="' + (H - 62) + '" fill="none" stroke="var(--ink)" stroke-width="1.5" rx="7"/>');
+    jours.forEach(function(j, i){
+      var x = cx(i);
+      o.push('<line x1="' + x.toFixed(1) + '" y1="' + AXE + '" x2="' + x.toFixed(1) + '" y2="' + (H - 18) +
+             '" stroke="var(--grid)" stroke-width="1"/>');
+      o.push('<text x="' + x.toFixed(1) + '" y="66" class="t-jour" text-anchor="middle">' + JCOURT[j.w] + '</text>');
+      o.push('<text x="' + x.toFixed(1) + '" y="84" class="t-num" text-anchor="middle">' + j.num + '</text>');
+    });
+    o.push('<line x1="' + PAD + '" y1="' + AXE + '" x2="' + (W - PAD) + '" y2="' + AXE +
+           '" stroke="var(--grid-strong)" stroke-width="1"/>');
+    o.push('<text x="' + cx(0).toFixed(1) + '" y="34" class="t-today" text-anchor="middle">AUJOURD&#8217;HUI</text>');
+    Object.keys(liv).forEach(function(k){
+      /* mono 9,5 px ≈ 6,5 px par caractère ; une étiquette peut déborder d'une
+         demi-colonne, au-delà on écrit le nombre plutôt que les noms.        */
+      var noms = liv[k].join(" · ");
+      var nmax = Math.floor((bande * 1.5 - 14) / 6.5);
+      var lab = noms.length <= nmax ? noms : liv[k].length + " LIVRAISONS";
+      o.push('<g><title>Livraison possible : ' + esc(noms) + '</title>' +
+             '<text x="' + cx(Number(k)).toFixed(1) + '" y="34" class="t-liv" text-anchor="middle">&#9660; ' +
+             esc(lab) + '</text></g>');
+    });
+    Object.keys(parJour).forEach(function(k){
+      parJour[k].forEach(function(p, idx){
+        var x = cx(Number(k)), y = AXE + 26 + idx * PAS;
+        var col = p.critique ? "var(--mark)" : "var(--mark-soft)";
+        o.push('<g class="pt"><title>' + esc(p.n) + ' (' + esc(p.sup) + ') — ' + fmtNum(p.stock) + ' ' + esc(p.u) +
+               ' en stock, ' + fmtNum(p.rythme) + ' ' + esc(p.u) + ' par jour, à sec dans ' +
+               fmtNum(p.joursRestants) + ' jour' + (p.joursRestants >= 2 ? "s" : "") + '</title>');
+        o.push('<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (R + 2.5) + '" fill="var(--surface)"/>');
+        o.push('<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + R + '" fill="' + col + '"/>');
+        o.push('<text x="' + x.toFixed(1) + '" y="' + (y + R + 14).toFixed(1) +
+               '" class="t-pt" text-anchor="middle">' + esc(court(p.n, bande)) + '</text>');
+        o.push('</g>');
+      });
+    });
+    o.push('</svg>');
+    return o.join("");
+  }
+
+  /* ---- graphique 2 : où part l'argent ---- */
+  function svgDepenses(dep){
+    var f = dep.lignes, W = 900, lab = 150, x0 = lab + 14, x1 = W - 150, pas = 38;
+    var H = f.length * pas + 10;
+    var vmax = 0;
+    f.forEach(function(l){ vmax = Math.max(vmax, l.total); });
+    if(!vmax) vmax = 1;
+    var o = ['<svg viewBox="0 0 ' + W + ' ' + H + '" class="viz" role="img" aria-label="Dépenses par fournisseur">'];
+    f.forEach(function(l, i){
+      var y = 12 + i * pas, bh = 16, w = (l.total / vmax) * (x1 - x0);
+      var pct = dep.total ? Math.round(l.total / dep.total * 100) : 0;
+      o.push('<g class="row"><title>' + esc(l.sup) + ' : ' + fmtEur(l.total) + ' sur ' + l.nb +
+             ' commande' + (l.nb > 1 ? "s" : "") + ' — ' + pct + ' % du mois</title>');
+      o.push('<rect x="0" y="' + (y - 10) + '" width="' + W + '" height="' + (bh + 16) + '" fill="transparent"/>');
+      o.push('<text x="' + lab + '" y="' + (y + 13) + '" class="t-lab" text-anchor="end">' + esc(l.sup) + '</text>');
+      o.push('<rect x="' + x0 + '" y="' + y + '" width="' + (x1 - x0) + '" height="' + bh + '" rx="8" fill="var(--piste)"/>');
+      o.push('<rect x="' + x0 + '" y="' + y + '" width="' + w.toFixed(1) + '" height="' + bh + '" rx="8" fill="var(--mark-soft)"/>');
+      o.push('<text x="' + (x1 + 12) + '" y="' + (y + 13) + '" class="t-val">' + Math.round(l.total) + ' €</text>');
+      o.push('<text x="' + (W - 10) + '" y="' + (y + 13) + '" class="t-pct">' + pct + ' %</text>');
+      o.push('</g>');
+    });
+    o.push('</svg>');
+    return o.join("");
+  }
+
+  /* ---- graphique 3 : le rythme de la semaine ---- */
+  function svgSemaine(p){
+    /* lundi d'abord : plus lisible qu'un dimanche en tête */
+    var ordre = [1,2,3,4,5,6,0];
+    var vals = ordre.map(function(w){ return p.moyennes[w]; });
+    var W = 900, H = 240, x0 = 44, x1 = W - 24, base = H - 42, haut = 34;
+    var pas = (x1 - x0) / (vals.length - 1);
+    var pic = Math.max.apply(null, vals);
+    var vmax = (pic || 1) * 1.18;
+    function px(i){ return x0 + pas * i; }
+    function py(v){ return base - (v / vmax) * (base - haut); }
+    var pts = vals.map(function(v, i){ return [px(i), py(v)]; });
+    var aire = "M" + pts[0][0].toFixed(1) + " " + base + " " +
+      pts.map(function(q){ return "L" + q[0].toFixed(1) + " " + q[1].toFixed(1); }).join(" ") +
+      " L" + pts[pts.length - 1][0].toFixed(1) + " " + base + " Z";
+    var ligne = "M" + pts.map(function(q){ return q[0].toFixed(1) + " " + q[1].toFixed(1); }).join(" L");
+
+    var o = ['<svg viewBox="0 0 ' + W + ' ' + H + '" class="viz" role="img" aria-label="Sorties par jour de semaine">'];
+    var pasAxe = pic > 40 ? 25 : pic > 12 ? 10 : pic > 4 ? 2 : 1;
+    for(var t = 0; t <= pic; t += pasAxe){
+      var y = py(t);
+      o.push('<line x1="' + x0 + '" y1="' + y.toFixed(1) + '" x2="' + x1 + '" y2="' + y.toFixed(1) +
+             '" stroke="var(--grid)" stroke-width="1"/>');
+      o.push('<text x="' + (x0 - 10) + '" y="' + (y + 4).toFixed(1) + '" class="t-axis" text-anchor="end">' + t + '</text>');
+    }
+    o.push('<path d="' + aire + '" fill="var(--aire)"/>');
+    o.push('<path d="' + ligne + '" fill="none" stroke="var(--mark)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>');
+    vals.forEach(function(v, i){
+      var x = pts[i][0], y = pts[i][1], top = v === pic && pic > 0;
+      o.push('<g class="pt"><title>' + JSEM[ordre[i]] + ' : ' + fmtNum(v) + ' ' + esc(p.u || "") +
+             ' en moyenne</title>');
+      o.push('<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="6.5" fill="var(--surface)"/>');
+      o.push('<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (top ? 5 : 4) +
+             '" fill="' + (top ? "var(--mark)" : "var(--mark-soft)") + '"/>');
+      if(top || i === 0 || i === vals.length - 1){
+        o.push('<text x="' + x.toFixed(1) + '" y="' + (y - 13).toFixed(1) +
+               '" class="t-val" text-anchor="middle">' + fmtNum(v) + '</text>');
+      }
+      o.push('<text x="' + x.toFixed(1) + '" y="' + (base + 22) + '" class="t-lab" text-anchor="middle">' +
+             JSEM[ordre[i]] + '</text>');
+      o.push('</g>');
+    });
+    o.push('<line x1="' + x0 + '" y1="' + base + '" x2="' + x1 + '" y2="' + base +
+           '" stroke="var(--grid-strong)" stroke-width="1"/>');
+    o.push('</svg>');
+    return o.join("");
+  }
+
+  /* ---- assemblage des trois cartes ---- */
+  function renderVue(){
+    if(statsErr){
+      vueHost.innerHTML = '<div class="carte"><div class="vide"><b>Les graphiques ne répondent pas</b>' +
+        'Si l\'app marche par ailleurs, c\'est que le script du Sheet n\'a pas encore été republié avec ' +
+        'cette nouveauté : dans Apps Script, <b>Déployer → Gérer les déploiements → crayon → Nouvelle version</b>.' +
+        '<br><br><code style="font-size:12px">' + esc(statsErr) + '</code></div></div>';
+      return;
+    }
+    if(!STATS){ vueHost.innerHTML = '<div class="boot">Lecture des mouvements…</div>'; return; }
+    var st = STATS, h = [];
+
+    /* ---------- 1. horizon de rupture ---------- */
+    var prods = st.produits || [];
+    var crit = prods.filter(function(p){ return p.critique; });
+    var parJ = {};
+    prods.forEach(function(p){ parJ[p.jour] = (parJ[p.jour] || 0) + 1; });
+    var pire = null;
+    Object.keys(parJ).forEach(function(k){ if(pire === null || parJ[k] > parJ[pire]) pire = k; });
+    var jourPire = pire === null ? "—" : JSEM[dateDe(st.jour0, Number(pire)).getDay()];
+    var nLiv = (st.livraisons || []).length;
+
+    h.push('<section class="carte vedette">');
+    h.push('<div class="tete"><div class="eyebrow">Horizon de rupture</div>' +
+      '<h2>Qu\'est-ce qui va manquer, et quand</h2>' +
+      '<p class="sous">Les dix prochains jours. Chaque pastille est un produit, posée sur le jour où il sera ' +
+      'à sec au rythme actuel. Les triangles annoncent les livraisons encore commandables.</p>' +
+      '<div class="chiffres">' +
+        '<div class="chiffre"><b class="' + (crit.length ? "alerte" : "") + '">' + crit.length + '</b>' +
+          '<span>à sec avant la prochaine livraison</span></div>' +
+        '<div class="chiffre"><b>' + jourPire + '</b><span>la journée la plus tendue</span></div>' +
+        '<div class="chiffre"><b>' + nLiv + '</b><span>livraisons possibles d\'ici là</span></div>' +
+      '</div></div>');
+    if(!st.assez || !prods.length){
+      h.push('<div class="vide"><b>' + (st.observes < 1 ? "Pas encore de mouvements" :
+        "Pas encore assez de mouvements") + '</b>' +
+        (st.observes < 1
+          ? 'Le calendrier a besoin des sorties saisies dans l\'onglet Gestion de stock pour calculer un rythme. Dès les premières, il s\'allume tout seul.'
+          : st.observes + ' jour' + (st.observes > 1 ? "s" : "") + ' de sorties enregistré' + (st.observes > 1 ? "s" : "") +
+            ' pour l\'instant' + (prods.length ? '' : ', et aucun produit ne risque la rupture dans les dix jours') +
+            '. Il faut trois jours pour un premier calcul, dix pour qu\'il soit solide.') +
+        '</div>');
+    } else {
+      h.push('<div class="corps large">' + svgHorizon(st) + '</div>');
+      h.push('<div class="legende">' +
+        '<span><i class="puce" style="background:var(--mark)"></i> à sec avant la prochaine livraison</span>' +
+        '<span><i class="puce" style="background:var(--mark-soft)"></i> tient jusqu\'à la livraison</span>' +
+        '</div>');
+    }
+    h.push('<div class="pied"><p class="note2">' +
+      (st.observes >= 3
+        ? 'Calcul : sorties des ' + st.observes + ' derniers jours ÷ ' + st.observes +
+          ', puis stock ÷ ce rythme. Survole une pastille pour voir le détail.'
+        : 'Calcul : les sorties enregistrées divisées par le nombre de jours réellement saisis — ' +
+          'jamais par 14 en dur, sinon le rythme des premiers jours serait deux fois trop lent.') + '</p>' +
+      (st.observes >= 10
+        ? '<span class="tag ok">Fiable</span>'
+        : '<span class="tag attente">Estimation provisoire</span>') +
+      '</div>');
+    h.push('</section>');
+
+    /* ---------- 2. où part l'argent ---------- */
+    var dep = st.depenses || {lignes:[], total:0, nb:0, mois:"", decalage:0, avant:false, apres:false};
+    var top3 = dep.lignes.slice(0, 3).reduce(function(s, l){ return s + l.total; }, 0);
+    var dec = Number(dep.decalage) || 0;
+    h.push('<section class="carte">');
+    h.push('<div class="tete"><div class="eyebrow">Où part l\'argent</div>' +
+      '<div class="titreligne">' +
+        '<h2>' + (dec === 0 ? "Les commandes du mois" : "Les commandes de " + esc(dep.mois)) + '</h2>' +
+        '<div class="mois" role="group" aria-label="Changer de mois">' +
+          '<button type="button" class="fl" id="moisPrec"' + (dep.avant ? "" : " disabled") +
+            ' aria-label="Mois précédent">&#8249;</button>' +
+          '<span class="moislab">' + esc(dep.mois || "—") + (depChargement ? " …" : "") + '</span>' +
+          '<button type="button" class="fl" id="moisSuiv"' + (dec < 0 ? "" : " disabled") +
+            ' aria-label="Mois suivant">&#8250;</button>' +
+        '</div>' +
+      '</div>' +
+      '<p class="sous">Fournisseur par fournisseur, et la part que chacun représente. ' +
+      'Les commandes de test ne sont pas comptées.</p>' +
+      '<div class="chiffres">' +
+        '<div class="chiffre"><b>' + (dep.total ? fmtEur(dep.total) : "—") + '</b><span>commandés en ' +
+          esc(dep.mois || "ce mois") + '</span></div>' +
+        '<div class="chiffre"><b>' + dep.nb + '</b><span>commandes envoyées</span></div>' +
+        '<div class="chiffre"><b>' + (dep.total ? Math.round(top3 / dep.total * 100) + " %" : "—") +
+          '</b><span>chez les trois premiers</span></div>' +
+      '</div></div>');
+    if(!dep.lignes.length){
+      h.push('<div class="vide"><b>Aucune commande en ' + esc(dep.mois) + '</b>' +
+        (dep.avant
+          ? 'Utilise la flèche &#8249; pour remonter à un mois où il y en a eu.'
+          : 'Dès la première commande envoyée depuis l\'onglet Commandes, elle apparaît ici.') + '</div>');
+    } else {
+      h.push('<div class="corps large">' + svgDepenses(dep) + '</div>');
+      h.push('<div class="pied"><p class="note2">Rien d\'urgent ici, donc rien d\'orange : c\'est un bilan, ' +
+        'pas une alerte. La longueur des barres suffit.</p>' +
+        (dec === 0 ? '<span class="tag ok">Mois en cours</span>'
+                   : '<span class="tag attente">Mois terminé</span>') + '</div>');
+    }
+    h.push('</section>');
+
+    /* ---------- 3. le rythme de la semaine ---------- */
+    var sem = st.semaine || {produits:[], jours:0};
+    var liste = sem.produits || [];
+    if(semChoix === null || !liste.some(function(p){ return p.n === semChoix; })){
+      semChoix = liste.length ? liste[0].n : null;
+    }
+    var choisi = null;
+    liste.forEach(function(p){ if(p.n === semChoix) choisi = p; });
+
+    h.push('<section class="carte">');
+    var ecart = "—";
+    if(choisi){
+      var mv = choisi.moyennes, bas = Infinity, hautV = 0;
+      mv.forEach(function(v){ if(v > hautV) hautV = v; if(v < bas) bas = v; });
+      ecart = bas > 0 ? (Math.round(hautV / bas * 10) / 10).toLocaleString("fr-BE") + "×" :
+              (hautV ? "—" : "—");
+    }
+    h.push('<div class="tete"><div class="eyebrow">Le rythme de la semaine</div>' +
+      '<div class="titreligne">' +
+        '<h2>' + (choisi ? esc(choisi.n) : "Quels jours consomment le plus") + '</h2>' +
+        (choisi
+          ? '<div class="picker"><label for="semSel">Produit</label><select id="semSel">' +
+              liste.map(function(p){
+                return '<option value="' + esc(p.n) + '"' + (p.n === semChoix ? " selected" : "") + '>' +
+                       esc(p.n) + '</option>';
+              }).join("") + '</select></div>'
+          : '') +
+      '</div>' +
+      '<p class="sous">Sorties moyennes par jour de la semaine, sur les quatre dernières semaines. ' +
+      'Un produit à la fois : change-le dans la liste. Sert à calibrer la commande d\'avant week-end.</p>' +
+      '<div class="chiffres">' +
+        '<div class="chiffre"><b>' + ecart + '</b><span>entre le jour le plus chargé et le plus calme</span></div>' +
+        '<div class="chiffre"><b>' + (choisi ? fmtNum(choisi.total) + " " + esc(choisi.u || "") : "—") +
+          '</b><span>sorties sur la période</span></div>' +
+        '<div class="chiffre"><b>' + sem.jours + '</b><span>jours observés</span></div>' +
+      '</div></div>');
+    if(!choisi){
+      h.push('<div class="vide"><b>Pas encore de sorties à comparer</b>' +
+        'Ce graphique a besoin de deux ou trois semaines pour dire quelque chose d\'utile. ' +
+        'Il se construit tout seul pendant ce temps.</div>');
+    } else {
+      h.push('<div class="corps large">' + svgSemaine(choisi) + '</div>');
+      h.push('<div class="pied"><p class="note2">' +
+        (sem.jours < 14
+          ? 'Moins de deux semaines de données : à lire comme une tendance, pas comme une règle.'
+          : 'Un affinage plus qu\'une décision : ça aide à savoir de combien gonfler la commande du jeudi.') +
+        '</p>' + (sem.jours >= 21 ? '<span class="tag ok">Fiable</span>' :
+                  '<span class="tag attente">Demande de l\'historique</span>') + '</div>');
+    }
+    h.push('</section>');
+
+    vueHost.innerHTML = h.join("");
+
+    var sel = document.getElementById("semSel");
+    if(sel) sel.addEventListener("change", function(){ semChoix = sel.value; renderVue(); });
+
+    var prec = document.getElementById("moisPrec"), suiv = document.getElementById("moisSuiv");
+    if(prec) prec.addEventListener("click", function(){ loadDepenses(moisDec - 1); });
+    if(suiv) suiv.addEventListener("click", function(){ loadDepenses(moisDec + 1); });
+  }
+
+  /* ------------------------------------------- rapport imprimable (PDF) */
+  /* Le navigateur fait le PDF : on se contente de mettre en page, et la
+     feuille d'impression enlève tout ce qui n'est pas le rapport.       */
+
+  var RAP = null, rapPeriode = "semaine", rapDec = 0, rapErr = null, rapOccupe = false;
+  var rapHost = document.getElementById("rapport");
+  var panRap = document.getElementById("panel-rapport");
+
+  function loadRapport(){
+    if(rapOccupe) return;
+    rapOccupe = true;
+    rapHost.innerHTML = '<div class="boot">Préparation du rapport…</div>';
+    majBarreRapport();
+    apiGet("rapport", {p: rapPeriode, d: rapDec}).then(function(res){
+      rapOccupe = false;
+      if(!res || !res.ok) throw new Error((res && res.err) || "réponse invalide");
+      RAP = res.rapport; rapErr = null; renderRapport();
+    }).catch(function(err){
+      rapOccupe = false;
+      rapErr = String(err && err.message ? err.message : err);
+      renderRapport();
+    });
+  }
+
+  function majBarreRapport(){
+    document.getElementById("rap-sem").setAttribute("aria-pressed", String(rapPeriode === "semaine"));
+    document.getElementById("rap-mois").setAttribute("aria-pressed", String(rapPeriode === "mois"));
+    document.getElementById("rapLab").textContent = RAP ? RAP.titre : "…";
+    document.getElementById("rapPrec").disabled = rapOccupe || !!(RAP && !RAP.avant);
+    document.getElementById("rapSuiv").disabled = rapOccupe || rapDec >= 0;
+  }
+
+  function ecartHtml(e){
+    if(e === null || e === undefined) return '<span class="ec moins">—</span>';
+    if(e === 0) return '<span class="ec moins">=</span>';
+    var cls = e > 0 ? "plus" : "moins";
+    return '<span class="ec ' + cls + '">' + (e > 0 ? "+" : "") + e + ' %</span>';
+  }
+
+  function renderRapport(){
+    if(rapErr){
+      rapHost.innerHTML = '<div class="carte"><div class="vide"><b>Le rapport ne répond pas</b>' +
+        'Le script du Sheet n\'a probablement pas encore été republié avec cette nouveauté : ' +
+        'dans Apps Script, <b>Déployer → Gérer les déploiements → crayon → Nouvelle version</b>.' +
+        '<br><br><code style="font-size:12px">' + esc(rapErr) + '</code></div></div>';
+      majBarreRapport();
+      return;
+    }
+    if(!RAP) return;
+    var r = RAP, h = [], lab = r.periode === "mois" ? "mois" : "semaine";
+
+    h.push('<article class="rap">');
+
+    /* ---- en-tête ---- */
+    var logo = document.querySelector(".brand .logo");
+    h.push('<header class="rap-tete">' +
+      (logo ? '<div class="rap-logo">' + logo.innerHTML + '</div>' : '') +
+      '<div class="ou">' + esc(r.cafe) + ' · Rapport ' + (r.periode === "mois" ? "mensuel" : "hebdomadaire") + '</div>' +
+      '<h1>' + esc(r.titre) + '</h1>' +
+      '<p class="quand">Du ' + esc(r.du) + ' au ' + esc(r.au) + ' · ' +
+        (r.complete ? 'période complète' : r.jours + ' jour' + (r.jours > 1 ? "s" : "") + ' écoulé' + (r.jours > 1 ? "s" : "")) +
+        ' · édité le ' + esc(r.genere) + '</p>' +
+      '</header>');
+
+    /* ---- les chiffres clés ---- */
+    var ecCmd = ecart_js(r.commandes.total, r.commandesPrec);
+    h.push('<div class="rap-clefs">' +
+      '<div><b>' + (r.commandes.total ? fmtEur(r.commandes.total) : "—") + '</b><span>commandé sur la période</span></div>' +
+      '<div><b>' + r.commandes.nb + '</b><span>commandes envoyées</span></div>' +
+      '<div><b>' + r.produitsSuivis + '</b><span>produits consommés</span></div>' +
+      '<div><b>' + r.sousSeuil + '</b><span>produits sous le seuil aujourd\'hui</span></div>' +
+      '</div>');
+
+    /* ---- 1. consommation ---- */
+    h.push('<section class="section"><h2>Consommation par produit</h2>');
+    if(!r.consommation.length){
+      h.push('<p class="rien">Aucune sortie enregistrée sur cette ' + lab + '.</p>');
+    } else {
+      r.consommation.forEach(function(g){
+        h.push('<h3>' + esc(g.sup) + '</h3><table><thead><tr>' +
+          '<th>Produit</th><th class="n">Sorties</th><th class="n">Par jour</th>' +
+          '<th class="n">vs ' + lab + ' précédente</th></tr></thead><tbody>');
+        g.produits.forEach(function(p){
+          h.push('<tr><td>' + esc(p.n) + '</td>' +
+            '<td class="n">' + fmtNum(p.q) + ' ' + esc(p.u) + '</td>' +
+            '<td class="n">' + fmtNum(p.moy) + '</td>' +
+            '<td class="n">' + ecartHtml(p.ecart) + '</td></tr>');
+        });
+        h.push('</tbody></table>');
+      });
+    }
+    h.push('</section>');
+
+    /* ---- 2. commandes ---- */
+    h.push('<section class="section"><h2>Commandes envoyées</h2>');
+    if(!r.commandes.nb){
+      h.push('<p class="rien">Aucune commande envoyée sur cette ' + lab + '.</p>');
+    } else {
+      h.push('<table><thead><tr><th>Date</th><th>Fournisseur</th><th>Détail</th>' +
+        '<th class="n">Montant</th><th>Livraison</th></tr></thead><tbody>');
+      r.commandes.lignes.forEach(function(l){
+        h.push('<tr><td class="n">' + esc(l.date) + '</td><td>' + esc(l.sup) + '</td>' +
+          '<td>' + esc(l.lignes) + '</td>' +
+          '<td class="n">' + (l.total ? fmtEur(l.total) : "—") + '</td>' +
+          '<td>' + esc(l.recuLe ? "reçue le " + l.recuLe : l.livraison) + '</td></tr>');
+      });
+      h.push('</tbody></table>');
+
+      h.push('<h3>Total par fournisseur</h3><table><thead><tr><th>Fournisseur</th>' +
+        '<th class="n">Commandes</th><th class="n">Montant</th>' +
+        '<th class="n">vs ' + lab + ' précédente</th></tr></thead><tbody>');
+      r.commandes.parFournisseur.forEach(function(l){
+        h.push('<tr><td>' + esc(l.sup) + '</td><td class="n">' + l.nb + '</td>' +
+          '<td class="n">' + fmtEur(l.total) + '</td>' +
+          '<td class="n">' + ecartHtml(l.ecart) + '</td></tr>');
+      });
+      h.push('<tr><td><b>Total</b></td><td class="n"><b>' + r.commandes.nb + '</b></td>' +
+        '<td class="n"><b>' + fmtEur(r.commandes.total) + '</b></td>' +
+        '<td class="n">' + ecartHtml(ecCmd) + '</td></tr>');
+      h.push('</tbody></table>');
+      h.push('<p class="rien">' + esc(r.precedent) + ' : ' +
+        (r.commandesPrec ? fmtEur(r.commandesPrec) : "aucune commande") + '.</p>');
+    }
+    h.push('</section>');
+
+    /* ---- 3. stock ---- */
+    h.push('<section class="section"><h2>Stock au ' + esc(r.genere.split(" à ")[0]) + '</h2>');
+    r.stock.forEach(function(g){
+      h.push('<h3>' + esc(g.sup) + '</h3><table><thead><tr>' +
+        '<th>Produit</th><th class="n">Stock</th><th class="n">Seuil</th><th>État</th>' +
+        '</tr></thead><tbody>');
+      g.produits.forEach(function(p){
+        h.push('<tr' + (p.bas ? ' class="bas"' : '') + '><td>' + esc(p.n) + '</td>' +
+          '<td class="n">' + fmtNum(p.s) + ' ' + esc(p.u) + '</td>' +
+          '<td class="n">' + fmtNum(p.m) + '</td>' +
+          '<td>' + (p.bas ? "à recommander" : "") + '</td></tr>');
+      });
+      h.push('</tbody></table>');
+    });
+    h.push('</section>');
+
+    var precMin = String(r.precedent).charAt(0).toLowerCase() + String(r.precedent).slice(1);
+    h.push('<p class="rap-pied">Les écarts comparent cette ' + lab + ' à la précédente (' + esc(precMin) +
+      '), à nombre de jours égal. Les commandes de test ne sont jamais comptées. ' +
+      'Le stock est celui du moment où le rapport est édité, pas de la fin de la période.<br>' +
+      'SlideKick · ' + esc(r.cafe) + '</p>');
+
+    h.push('</article>');
+    rapHost.innerHTML = h.join("");
+    majBarreRapport();
+  }
+
+  function ecart_js(a, b){ return b ? Math.round(((a - b) / b) * 100) : null; }
+
+  function ouvrirRapport(ouvert){
+    panRap.hidden = !ouvert;
+    if(ouvert){
+      Object.keys(TABS).forEach(function(k){ TABS[k].pan.hidden = true; });
+      loadRapport();
+    } else {
+      selectTab("vue");
+    }
+  }
+
+  document.getElementById("ouvrirRapport").addEventListener("click", function(){ ouvrirRapport(true); });
+  document.getElementById("rapRetour").addEventListener("click", function(){ ouvrirRapport(false); });
+  document.getElementById("rapImprime").addEventListener("click", function(){ window.print(); });
+  document.getElementById("rap-sem").addEventListener("click", function(){
+    if(rapPeriode === "semaine") return;
+    rapPeriode = "semaine"; rapDec = 0; loadRapport();
+  });
+  document.getElementById("rap-mois").addEventListener("click", function(){
+    if(rapPeriode === "mois") return;
+    rapPeriode = "mois"; rapDec = 0; loadRapport();
+  });
+  document.getElementById("rapPrec").addEventListener("click", function(){ rapDec--; loadRapport(); });
+  document.getElementById("rapSuiv").addEventListener("click", function(){
+    if(rapDec < 0){ rapDec++; loadRapport(); }
+  });
+
   var TABS = {
     stock:  {tab:document.getElementById("tab-stock"),  pan:document.getElementById("panel-stock")},
     orders: {tab:document.getElementById("tab-orders"), pan:document.getElementById("panel-orders")},
-    hist:   {tab:document.getElementById("tab-hist"),   pan:document.getElementById("panel-hist")}
+    hist:   {tab:document.getElementById("tab-hist"),   pan:document.getElementById("panel-hist")},
+    vue:    {tab:document.getElementById("tab-vue"),    pan:document.getElementById("panel-vue")}
   };
   function selectTab(which){
+    panRap.hidden = true;                 // le rapport se referme dès qu'on change d'onglet
     Object.keys(TABS).forEach(function(k){
       TABS[k].tab.setAttribute("aria-selected", String(k === which));
       TABS[k].pan.hidden = k !== which;
     });
     if(which === "orders") renderOrders();
     if(which === "hist"){ renderHist(); loadHist(); }
+    if(which === "vue"){ renderVue(); loadStats(); }
   }
   Object.keys(TABS).forEach(function(k){
     TABS[k].tab.addEventListener("click", function(){ selectTab(k); });
@@ -1029,9 +1869,10 @@
       .then(function(res){
         if(!res || !res.ok) throw new Error((res && res.err) || "réponse invalide");
         SUPS = res.data.suppliers || [];
+        recSupporte = Array.isArray(res.data.recurrentes);
+        RECS = res.data.recurrentes || [];
         CAFE = res.data.cafe || CAFE;
         moves = res.moves || [];
-        document.getElementById("brandSub").textContent = CAFE;
         loaded = true;
         setSync("Google Sheet · <b>à jour</b>");
         render(); renderLog(); renderOrders();
