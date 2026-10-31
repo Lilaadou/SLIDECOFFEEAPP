@@ -376,6 +376,35 @@
   .plain{background:none; border:0; padding:4px 2px; font-size:12.5px; color:var(--muted); cursor:pointer; text-decoration:underline}
   .plain:hover{color:var(--ink)}
 
+  /* ------------------------------------------- fiche de réception */
+  .hreste{
+    font-size:12.5px; color:var(--accent-text); font-weight:600; margin-top:6px;
+    padding-left:11px; border-left:3px solid var(--accent); line-height:1.45;
+  }
+  .recep{margin-top:12px; border:2px solid var(--accent); border-radius:9px; padding:13px 14px 12px}
+  .recep-tete{font-size:13.5px; font-weight:700; margin-bottom:9px}
+  .recep-note{font-weight:500; color:var(--muted)}
+  .recep-vide{font-size:13px; color:var(--muted); margin:0 0 11px; max-width:60ch}
+  .recep-t{width:100%; border-collapse:collapse}
+  .recep-t td{padding:9px 0; border-top:1px solid var(--line); vertical-align:middle}
+  .recep-t tr:first-child td{border-top:0}
+  .recep-t td.c{width:34px}
+  .recep-t td.q{width:150px; text-align:right; white-space:nowrap}
+  .recep-t input[type=checkbox]{width:22px; height:22px; accent-color:var(--accent); cursor:pointer}
+  .recep-t label{font-size:14.5px; cursor:pointer; display:block}
+  /* classe posée en JS plutôt que :has(), qui manque sur les vieux iPad */
+  .recep-t tr.off label{color:var(--muted); text-decoration:line-through}
+  .recep-t tr.off .rq, .recep-t tr.off .recep-u{opacity:.4}
+  .recep-deja{display:block; font-size:11.5px; color:var(--muted); margin-top:2px}
+  .recep-t .rq{
+    font:inherit; font-family:var(--mono); font-size:15px; font-weight:600; width:74px;
+    padding:8px 9px; text-align:right; background:var(--surface); color:var(--ink);
+    border:1px solid var(--line-strong); border-radius:6px;
+  }
+  .recep-t .rq:focus{border-color:var(--accent)}
+  .recep-u{display:inline-block; font-family:var(--mono); font-size:11.5px; color:var(--muted); margin-left:7px}
+  .recep-aide{font-size:12px; color:var(--muted); margin:10px 0 0; max-width:62ch; line-height:1.5}
+
   /* ------------------------------------------------ onglet Coup d'œil */
   .carte{background:var(--surface); border:2px solid var(--line-strong); border-radius:12px; margin-top:20px; overflow:hidden}
   .carte.vedette{border-color:var(--accent)}
@@ -469,6 +498,7 @@
   .rap .ec.plus{color:var(--accent-text)}
   .rap .ec.moins{color:var(--muted)}
   .rap .rien{font-size:13px; color:var(--muted); padding:10px 0}
+  .rap .manque{font-size:11.5px; color:var(--accent-text); font-weight:600}
   .rap-pied{margin-top:30px; padding-top:13px; border-top:1px solid var(--line); font-size:11.5px; color:var(--muted)}
 
   @media print{
@@ -568,7 +598,7 @@
     </div>
     <div id="hist"></div>
     <footer>
-      <p>« Commande reçue » ajoute automatiquement les quantités commandées au stock et les inscrit au journal des mouvements comme des entrées. Le petit lien à côté clôt la ligne sans rien ajouter, pour les rares fois où l'équipe a déjà compté à la main.</p>
+      <p>« Réceptionner » ouvre la liste de ce qui a été commandé : on coche chaque produit en vérifiant la marchandise, et on corrige la quantité s'il en manque. Seul ce qui est coché entre en stock, et le journal des mouvements garde la trace de chaque entrée. S'il manque quelque chose, la commande reste en attente avec le détail de ce qui est encore dû, et on la complète à la livraison suivante.</p>
     </footer>
   </section>
 
@@ -638,6 +668,7 @@
   var openSup = {};        // fournisseurs dépliés dans l'onglet stock
   var previewCache = {};   // aperçu rendu par le Sheet, modèle du fournisseur compris
   var orders = [], hFilter = "wait", histLoaded = false, histFlash = {};
+  var recepOuverte = null;    // id de la commande dont la fiche de réception est ouverte
   var RECS = [], recFlash = {}, recSupporte = true;
 
   var host = document.getElementById("suppliers");
@@ -1079,8 +1110,59 @@
   /* ------------------------------------------------------------ onglet 3 */
   var hHost = document.getElementById("hist");
 
+  /* une commande est close dès que son statut commence par « Reçue » sans
+     « en partie », ou qu'elle a été clôturée à la main.                  */
+  function clos(o){
+    var s = String(o.livraison || "");
+    return s === "Reçue" || s === "Clôturée" || s.indexOf("comptée à la main") !== -1;
+  }
+  function resteDe(o){
+    if(!o.detail || !o.detail.lines) return [];
+    return o.detail.lines.map(function(l){
+      return {n:l.n, ou:l.ou || "", q:l.q, r:l.r, reste: Math.round((l.q - l.r) * 100) / 100};
+    }).filter(function(l){ return l.reste > 0; });
+  }
+
+  /* --- la fiche de réception : une ligne à cocher par produit --- */
+  function ficheReception(o){
+    var reste = resteDe(o);
+    if(!reste.length){
+      return '<div class="recep"><p class="recep-vide">Le détail de cette commande n\'a pas été ' +
+        'enregistré — elle est antérieure au cochage. Utilise « tout est arrivé » pour la clôturer.</p>' +
+        '<div class="hbtns">' +
+          '<button type="button" class="send" data-close="' + esc(o.id) + '">Tout est arrivé</button>' +
+          '<button type="button" class="ghost" data-annule="1">Annuler</button>' +
+        '</div></div>';
+    }
+    var partiel = o.detail.lines.some(function(l){ return l.r > 0; });
+    return '<div class="recep" data-fiche="' + esc(o.id) + '">' +
+      '<div class="recep-tete">Coche ce qui est arrivé' +
+        (partiel ? ' <span class="recep-note">· réception déjà commencée</span>' : '') + '</div>' +
+      '<table class="recep-t"><tbody>' +
+      reste.map(function(l, i){
+        return '<tr>' +
+          '<td class="c"><input type="checkbox" class="rc" id="rc' + i + '" checked ' +
+            'data-n="' + esc(l.n) + '"></td>' +
+          '<td class="p"><label for="rc' + i + '">' + esc(l.n) + '</label>' +
+            (l.r > 0 ? '<span class="recep-deja">déjà reçu : ' + fmtNum(l.r) + '</span>' : '') + '</td>' +
+          '<td class="q"><input type="number" class="rq" inputmode="decimal" min="0" step="any" ' +
+            'value="' + l.reste + '" data-max="' + l.reste + '" aria-label="Quantité reçue de ' + esc(l.n) + '">' +
+            '<span class="recep-u">/ ' + fmtNum(l.reste) + ' ' + esc(l.ou) + '</span></td>' +
+        '</tr>';
+      }).join("") +
+      '</tbody></table>' +
+      '<div class="hbtns">' +
+        '<button type="button" class="send" data-valide="' + esc(o.id) + '">Valider la réception</button>' +
+        '<button type="button" class="ghost" data-rien="1">Tout décocher</button>' +
+        '<button type="button" class="ghost" data-annule="1">Annuler</button>' +
+      '</div>' +
+      '<p class="recep-aide">Décoche un produit qui n\'est pas arrivé, ou corrige la quantité s\'il en manque. ' +
+      'Ce qui reste attendu garde la commande en attente.</p>' +
+    '</div>';
+  }
+
   function renderHist(){
-    var attente = orders.filter(function(o){ return o.livraison !== "Reçue"; });
+    var attente = orders.filter(function(o){ return !clos(o); });
     var badge = document.getElementById("histBadge");
     badge.hidden = attente.length === 0;
     badge.textContent = attente.length;
@@ -1094,22 +1176,36 @@
       return;
     }
     hHost.innerHTML = list.map(function(o){
-      var recue = o.livraison === "Reçue";
+      var recue = clos(o);
+      var reste = resteDe(o);
+      var partiel = !recue && o.detail && o.detail.lines &&
+                    o.detail.lines.some(function(l){ return l.r > 0; });
+      var ouvert = recepOuverte === o.id;
+
       return '<article class="hcard ' + (recue ? "recue" : "attente") + '">' +
         '<div class="htop"><span class="hsup">' + esc(o.fournisseur) + '</span>' +
           '<span class="hdate">' + esc(o.date) + '</span>' +
           '<span class="htag ' + (recue ? "recue" : "attente") + '">' +
-            (recue ? "Reçue" + (o.recuLe ? " le " + esc(o.recuLe) : "") : "En attente") + '</span>' +
+            (recue ? esc(o.livraison) + (o.recuLe ? " le " + esc(o.recuLe) : "")
+                   : (partiel ? "Reçue en partie" : "En attente")) + '</span>' +
           (o.total !== null && o.total !== 0 ? '<span class="htot">' + fmtEur(o.total) + '</span>' : '') +
         '</div>' +
         '<div class="hlines">' + esc(o.lignes || "") + '</div>' +
+        (partiel && reste.length
+          ? '<div class="hreste">Encore attendu : ' +
+              reste.map(function(l){ return esc(l.n) + ' ×' + fmtNum(l.reste) + ' ' + esc(l.ou); }).join(" · ") +
+            '</div>'
+          : '') +
         '<div class="hmeta">' + esc(o.statut || "") + (o.destinataire ? ' · ' + esc(o.destinataire) : '') + '</div>' +
-        '<div class="hbtns">' +
-          (recue
-            ? '<button type="button" class="ghost" data-undeliver="' + esc(o.id) + '">Remettre en attente</button>'
-            : '<button type="button" class="send" data-deliver="' + esc(o.id) + '" data-stock="1">Commande reçue</button>' +
-              '<button type="button" class="plain" data-deliver="' + esc(o.id) + '" data-stock="0">sans ajouter au stock</button>') +
-        '</div>' +
+        (ouvert
+          ? ficheReception(o)
+          : '<div class="hbtns">' +
+              (recue
+                ? '<button type="button" class="ghost" data-undeliver="' + esc(o.id) + '">Remettre en attente</button>'
+                : '<button type="button" class="send" data-recep="' + esc(o.id) + '">' +
+                    (partiel ? "Réceptionner le reste" : "Réceptionner") + '</button>' +
+                  '<button type="button" class="plain" data-deliver="' + esc(o.id) + '" data-stock="0">clôturer sans toucher au stock</button>') +
+            '</div>') +
         (histFlash[o.id] ? '<div class="flash ok" style="margin-top:9px">' + esc(histFlash[o.id]) + '</div>' : '') +
       '</article>';
     }).join("");
@@ -1126,27 +1222,87 @@
       });
   }
 
-  hHost.addEventListener("click", function(e){
-    var b = e.target.closest("[data-deliver]") || e.target.closest("[data-undeliver]");
-    if(!b || busy) return;
-    var recu = !!b.getAttribute("data-deliver");
-    var id = b.getAttribute("data-deliver") || b.getAttribute("data-undeliver");
-    var stock = b.getAttribute("data-stock") === "1";
+  /* envoie une réception et rafraîchit les deux onglets concernés */
+  function envoyerReception(payload, id, touchStock){
     setBusy(true); setSync("Google Sheet · <b>mise à jour…</b>");
-    apiPost({action:"delivered", id:id, recu:recu, stock:stock})
+    payload.action = "delivered";
+    payload.id = id;
+    return apiPost(payload)
       .then(function(res){
         setBusy(false);
         if(res && res.ok){
           setSync("Google Sheet · <b>enregistré</b>");
-          if(recu && res.msg) histFlash[id] = res.msg;
-          else delete histFlash[id];
+          if(res.msg) histFlash[id] = res.msg; else delete histFlash[id];
+          recepOuverte = null;
         } else {
           setSync("Google Sheet · <b>refusé</b>");
           histFlash[id] = (res && res.err) || "Mise à jour refusée.";
         }
-        return Promise.all([loadHist(), stock ? refreshAll() : null]);
+        return Promise.all([loadHist(), touchStock ? refreshAll() : null]);
       })
       .catch(function(){ setBusy(false); setSync("Google Sheet · <b>hors ligne</b>"); });
+  }
+
+  /* grise la ligne quand on décoche : la quantité n'a plus de sens */
+  function majLigneRecep(c){
+    var tr = c.closest("tr");
+    if(tr) tr.classList.toggle("off", !c.checked);
+  }
+  hHost.addEventListener("change", function(e){
+    if(e.target.classList && e.target.classList.contains("rc")) majLigneRecep(e.target);
+  });
+
+  hHost.addEventListener("click", function(e){
+    if(busy) return;
+
+    /* ouvrir / fermer la fiche de réception */
+    var ouvre = e.target.closest("[data-recep]");
+    if(ouvre){ recepOuverte = ouvre.getAttribute("data-recep"); renderHist(); return; }
+    if(e.target.closest("[data-annule]")){ recepOuverte = null; renderHist(); return; }
+
+    var vide = e.target.closest("[data-rien]");
+    if(vide){
+      hHost.querySelectorAll(".recep .rc").forEach(function(c){
+        c.checked = false;
+        majLigneRecep(c);
+      });
+      return;
+    }
+
+    /* valider ce qui est coché */
+    var ok = e.target.closest("[data-valide]");
+    if(ok){
+      var id = ok.getAttribute("data-valide");
+      var fiche = hHost.querySelector('[data-fiche="' + id + '"]');
+      if(!fiche) return;
+      var recues = [];
+      fiche.querySelectorAll("tr").forEach(function(tr){
+        var c = tr.querySelector(".rc"), q = tr.querySelector(".rq");
+        if(!c || !q || !c.checked) return;
+        var val = Number(String(q.value).replace(",", "."));
+        var max = Number(q.getAttribute("data-max"));
+        if(!isFinite(val) || val <= 0) return;
+        recues.push({n: c.getAttribute("data-n"), q: Math.min(val, max)});
+      });
+      if(!recues.length){
+        histFlash[id] = "Rien de coché : si la livraison n'est pas arrivée, laisse la commande en attente.";
+        renderHist();
+        return;
+      }
+      envoyerReception({recues: recues}, id, true);
+      return;
+    }
+
+    /* clôturer une vieille commande sans détail */
+    var fin = e.target.closest("[data-close]");
+    if(fin){ envoyerReception({cloturer: true}, fin.getAttribute("data-close"), false); return; }
+
+    /* clôturer sans toucher au stock, ou remettre en attente */
+    var b = e.target.closest("[data-deliver]") || e.target.closest("[data-undeliver]");
+    if(!b) return;
+    var recu = !!b.getAttribute("data-deliver");
+    var bid = b.getAttribute("data-deliver") || b.getAttribute("data-undeliver");
+    envoyerReception(recu ? {stock: false} : {recu: false}, bid, false);
   });
 
   var hChips = {wait:document.getElementById("h-wait"), all:document.getElementById("h-all")};
@@ -1722,13 +1878,17 @@
         ' · édité le ' + esc(r.genere) + '</p>' +
       '</header>');
 
-    /* ---- les chiffres clés ---- */
-    var ecCmd = ecart_js(r.commandes.total, r.commandesPrec);
+    /* ---- les chiffres clés ----
+       L'écart se calcule sur le livré, pas sur le commandé : comparer une
+       commande partie à une commande reçue n'aurait pas de sens.        */
+    var ecCmd = ecart_js(r.commandes.livre, r.livrePrec);
+    var manque = Math.round((r.commandes.total - r.commandes.livre) * 100) / 100;
     h.push('<div class="rap-clefs">' +
-      '<div><b>' + (r.commandes.total ? fmtEur(r.commandes.total) : "—") + '</b><span>commandé sur la période</span></div>' +
-      '<div><b>' + r.commandes.nb + '</b><span>commandes envoyées</span></div>' +
+      '<div><b>' + (r.commandes.livre ? fmtEur(r.commandes.livre) : "—") + '</b><span>livré et entré en stock</span></div>' +
+      '<div><b>' + (r.commandes.total ? fmtEur(r.commandes.total) : "—") + '</b><span>commandé, en ' +
+        r.commandes.nb + ' commande' + (r.commandes.nb > 1 ? "s" : "") + '</span></div>' +
       '<div><b>' + r.produitsSuivis + '</b><span>produits consommés</span></div>' +
-      '<div><b>' + r.sousSeuil + '</b><span>produits sous le seuil aujourd\'hui</span></div>' +
+      '<div><b>' + r.sousSeuil + '</b><span>sous le seuil aujourd\'hui</span></div>' +
       '</div>');
 
     /* ---- 1. consommation ---- */
@@ -1757,29 +1917,45 @@
       h.push('<p class="rien">Aucune commande envoyée sur cette ' + lab + '.</p>');
     } else {
       h.push('<table><thead><tr><th>Date</th><th>Fournisseur</th><th>Détail</th>' +
-        '<th class="n">Montant</th><th>Livraison</th></tr></thead><tbody>');
+        '<th class="n">Commandé</th><th class="n">Livré</th><th>État</th></tr></thead><tbody>');
       r.commandes.lignes.forEach(function(l){
-        h.push('<tr><td class="n">' + esc(l.date) + '</td><td>' + esc(l.sup) + '</td>' +
-          '<td>' + esc(l.lignes) + '</td>' +
+        var complet = Math.abs(l.total - l.livre) < 0.01 && !l.manque;
+        h.push('<tr' + (complet ? '' : ' class="bas"') + '>' +
+          '<td class="n">' + esc(l.date) + '</td><td>' + esc(l.sup) + '</td>' +
+          '<td>' + esc(l.lignes) +
+            (l.manque ? '<br><span class="manque">manque : ' + esc(l.manque) + '</span>' : '') + '</td>' +
           '<td class="n">' + (l.total ? fmtEur(l.total) : "—") + '</td>' +
+          '<td class="n">' + (l.livre ? fmtEur(l.livre) : "—") + '</td>' +
           '<td>' + esc(l.recuLe ? "reçue le " + l.recuLe : l.livraison) + '</td></tr>');
       });
       h.push('</tbody></table>');
 
       h.push('<h3>Total par fournisseur</h3><table><thead><tr><th>Fournisseur</th>' +
-        '<th class="n">Commandes</th><th class="n">Montant</th>' +
-        '<th class="n">vs ' + lab + ' précédente</th></tr></thead><tbody>');
+        '<th class="n">Commandes</th><th class="n">Commandé</th><th class="n">Livré</th>' +
+        '<th class="n">Livré vs ' + lab + ' précédente</th></tr></thead><tbody>');
       r.commandes.parFournisseur.forEach(function(l){
         h.push('<tr><td>' + esc(l.sup) + '</td><td class="n">' + l.nb + '</td>' +
           '<td class="n">' + fmtEur(l.total) + '</td>' +
+          '<td class="n">' + fmtEur(l.livre) + '</td>' +
           '<td class="n">' + ecartHtml(l.ecart) + '</td></tr>');
       });
       h.push('<tr><td><b>Total</b></td><td class="n"><b>' + r.commandes.nb + '</b></td>' +
         '<td class="n"><b>' + fmtEur(r.commandes.total) + '</b></td>' +
+        '<td class="n"><b>' + fmtEur(r.commandes.livre) + '</b></td>' +
         '<td class="n">' + ecartHtml(ecCmd) + '</td></tr>');
       h.push('</tbody></table>');
+
+      if(manque > 0.01){
+        h.push('<p class="rien"><b>' + fmtEur(manque) + ' commandés ne sont pas encore entrés en stock</b> — ' +
+          (r.commandes.incompletes
+            ? r.commandes.incompletes + ' commande' + (r.commandes.incompletes > 1 ? "s" : "") +
+              ' incomplète' + (r.commandes.incompletes > 1 ? "s" : "") + ' ou en attente de livraison.'
+            : 'des livraisons encore attendues.') + '</p>');
+      }
       h.push('<p class="rien">' + esc(r.precedent) + ' : ' +
-        (r.commandesPrec ? fmtEur(r.commandesPrec) : "aucune commande") + '.</p>');
+        (r.commandesPrec
+          ? fmtEur(r.commandesPrec) + ' commandés, ' + fmtEur(r.livrePrec || 0) + ' livrés'
+          : "aucune commande") + '.</p>');
     }
     h.push('</section>');
 
@@ -1800,7 +1976,10 @@
     h.push('</section>');
 
     var precMin = String(r.precedent).charAt(0).toLowerCase() + String(r.precedent).slice(1);
-    h.push('<p class="rap-pied">Les écarts comparent cette ' + lab + ' à la précédente (' + esc(precMin) +
+    h.push('<p class="rap-pied"><b>Commandé</b> est ce qui est parti chez le fournisseur ; ' +
+      '<b>livré</b> est ce qui a été coché à la réception et donc réellement entré en stock. ' +
+      'Les deux ne se rejoignent que lorsque toutes les livraisons sont complètes.<br>' +
+      'Les écarts comparent le livré de cette ' + lab + ' au livré de la précédente (' + esc(precMin) +
       '), à nombre de jours égal. Les commandes de test ne sont jamais comptées. ' +
       'Le stock est celui du moment où le rapport est édité, pas de la fin de la période.<br>' +
       'SlideKick · ' + esc(r.cafe) + '</p>');
