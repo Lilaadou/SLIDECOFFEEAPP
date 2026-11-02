@@ -470,6 +470,13 @@
     padding:13px 0 3px; margin-bottom:4px;
   }
   .rapquoi{font-size:13px; color:var(--muted); max-width:52ch}
+  .horsstock{
+    background:var(--surface-2); border:1px dashed var(--line-strong); border-radius:10px;
+    padding:15px 18px; margin-top:18px;
+  }
+  .horsstock > b{display:block; font-size:14px; letter-spacing:.03em}
+  .horsstock > span{display:block; font-size:13px; color:var(--muted); margin-top:5px; max-width:78ch; line-height:1.5}
+  .horsstock > span b{color:var(--ink-2)}
   .rap{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:28px 30px; margin-top:12px}
   .rap-tete{border-bottom:3px solid var(--ink); padding-bottom:14px; margin-bottom:22px}
   .rap-logo{color:var(--accent); line-height:0; margin-bottom:14px}
@@ -754,7 +761,12 @@
     if(sup.days === "any") return "Aucun jour imposé";
     return sup.days.map(function(d){ return DAYS[d]; }).join(" et ") + " avant " + fmtH(sup.cutoff);
   }
+  /* Un fournisseur avec « Suivi du stock » sur non n'a pas de seuils qui
+     veulent dire quelque chose : il disparaît de l'onglet stock et ne
+     déclenche aucune alerte, mais garde son bon de commande.          */
+  function suivi(sup){ return sup.suivi !== false; }
   function pState(sup, p){
+    if(!suivi(sup)) return "ok";
     if(p.s <= p.m) return "crit";
     if(p.s <= p.m * 1.25) return "warn";
     return "ok";
@@ -814,8 +826,9 @@
     badge.hidden = nSup === 0;
     badge.textContent = nSup;
 
-    var html = "";
+    var html = "", horsSuivi = [];
     sortedSuppliers().forEach(function(sup){
+      if(!suivi(sup)){ horsSuivi.push(sup.name); return; }
       var w = windowState(sup);
       if(filter === "open" && w.kind !== "ok") return;
       var rows = "", any = false;
@@ -869,6 +882,13 @@
           '<span class="pill ' + dl.cls + '">' + esc(dl.txt) + '</span></div></div>' +
         (ouvert ? '<div class="pgrid">' + rows + '</div>' : '') + '</section>';
     });
+    if(horsSuivi.length){
+      html += '<div class="horsstock">' +
+        '<b>Stock non suivi : ' + horsSuivi.map(esc).join(" · ") + '</b>' +
+        '<span>On leur envoie des commandes depuis l\'onglet Commandes, mais leur stock n\'est pas compté ici ' +
+        'et ils ne déclenchent aucune alerte de seuil. Pour en suivre un, mets « oui » dans la colonne ' +
+        '<b>Suivi du stock</b> de l\'onglet Fournisseurs.</span></div>';
+    }
     host.innerHTML = html || '<div class="sup"><div class="empty">Aucun produit ne correspond à ce filtre.</div></div>';
   }
 
@@ -892,6 +912,7 @@
 
   /* ------------------------------------------------------------ onglet 2 */
   function suggest(sup, p){
+    if(!suivi(sup)) return 1;          // pas de stock connu : rien à déduire
     if(p.s > p.m) return 1;
     return Math.max(1, Math.ceil((p.m * 2 - p.s) / (p.oq || 1)));
   }
@@ -1043,7 +1064,9 @@
     sortedSuppliers().forEach(function(sup){
       ensureOrder(sup);
       var w = windowState(sup);
-      var toOrder = sup.products.some(function(p){ return pState(sup,p) === "crit"; });
+      /* un fournisseur sans suivi de stock reste toujours dans la liste :
+         l'app ne peut pas savoir qu'il y a quelque chose à commander. */
+      var toOrder = !suivi(sup) || sup.products.some(function(p){ return pState(sup,p) === "crit"; });
       if(oFilter === "todo" && !toOrder) return;
       var tot = orderTotals(sup);
       var reason = blockReason(sup, w, tot);
@@ -1055,8 +1078,10 @@
         return '<div class="oline ' + (o.on ? "on" : "") + '">' +
           '<input type="checkbox" data-ok="' + k + '"' + (o.on ? " checked" : "") + ' aria-label="Commander ' + esc(p.n) + '">' +
           '<div class="oname">' + esc(p.n) +
-            '<span>stock ' + fmtNum(p.s) + " " + esc(p.u) + " · min. " + fmtNum(p.m) +
-            (st === "crit" ? " · sous le seuil" : "") + '</span></div>' +
+            '<span>' + (suivi(sup)
+              ? 'stock ' + fmtNum(p.s) + " " + esc(p.u) + " · min. " + fmtNum(p.m) +
+                (st === "crit" ? " · sous le seuil" : "")
+              : 'stock non suivi — quantité à saisir') + '</span></div>' +
           '<div class="oqty"><button type="button" data-oq="' + k + '" data-d="-1" aria-label="Moins">−</button>' +
             '<input type="number" min="0" step="1" inputmode="numeric" value="' + o.q + '" data-oi="' + k + '" aria-label="Quantité ' + esc(p.n) + '">' +
             '<button type="button" data-oq="' + k + '" data-d="1" aria-label="Plus">+</button></div>' +
@@ -1072,6 +1097,7 @@
 
       html += '<section class="sup">' +
         '<div class="sup-head"><div class="sup-id"><h2>' + esc(sup.name) + '</h2>' +
+          (suivi(sup) ? '' : '<span class="supcount calme">stock non suivi</span>') +
           '<div class="sup-rules"><b>' + esc(rulesText(sup)) + '</b>' +
             (sup.minEur ? ' · minimum ' + fmtEur(sup.minEur) : '') +
             (sup.minQty ? ' · minimum ' + sup.minQty.v + " " + esc(sup.minQty.u) : '') +
@@ -1961,6 +1987,10 @@
 
     /* ---- 3. stock ---- */
     h.push('<section class="section"><h2>Stock au ' + esc(r.genere.split(" à ")[0]) + '</h2>');
+    if(r.sansSuivi && r.sansSuivi.length){
+      h.push('<p class="rien">Stock non suivi chez ' + r.sansSuivi.map(esc).join(", ") +
+        ' : on leur commande sans compter leur stock, leurs montants figurent plus haut.</p>');
+    }
     r.stock.forEach(function(g){
       h.push('<h3>' + esc(g.sup) + '</h3><table><thead><tr>' +
         '<th>Produit</th><th class="n">Stock</th><th class="n">Seuil</th><th>État</th>' +
